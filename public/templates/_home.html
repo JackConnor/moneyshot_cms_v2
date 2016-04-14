@@ -1,0 +1,73 @@
+<div class="yesNoPopup" ng-if='dash.yesNoPopupVariable'>
+  <div class="xOutPopup" ng-click='dash.closePopup()'>
+    X
+  </div>
+  <div class="yesNoContainer col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 ">
+    <div class="popupImageFrame col-sm-6 col-xs-6">
+      <img src="{{dash.currentPhoto.url}}" ng-if="!dash.currentPhoto.isVideo"/>
+      <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" controls></video>
+    </div>
+    <div class="popupInfoContainer col-sm-6 col-xs-6">
+      <p>
+        who: <span ng-repeat='person in dash.currentPhoto.photosubjects'>{{person}}, </span>
+      </p>
+      <p>
+        where: {{dash.currentPhoto.location}}
+      </p>
+      <p>
+        when: {{dash.currentPhoto.date}}
+      </p>
+      <input type="text" placeholder='enter price' class='popupPrice'>
+      <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+        <div class="yesTab selectionTab col-xs-6" ng-click='dash.submitSuccessPhoto(dash.currentPhoto._id)' id='{{dash.currentPhoto._id}}'>
+          Sell
+        </div>
+        <div class="noTab selectionTab col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto._id); dash.yesNoPopupVariable = false;'>
+          Reject
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12">
+
+    </div>
+  </div>
+</div>
+<div class="tabsContainer row">
+  <div class="photoCarouselTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
+    Stream
+  </div>
+  <div class="photoAllTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
+    All
+  </div>
+  <div class="photoSoldTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
+    Sold
+  </div>
+</div>
+<div class="photoStreamContainer" ng-if="dash.currentTab == 'photoStream'">
+  <div class="singlePhotoFrame col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+    <img src="{{dash.currentPhoto.url}}" alt="" />
+  </div>
+  <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+    <div class="yesTab selectionTab col-xs-6" ng-click='dash.yesNoPopup()'>
+      Sell
+    </div>
+    <div class="noTab selectionTab col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto._id); dash.nextCarousel()'>
+      Reject
+    </div>
+  </div>
+</div>
+<div class="photosContainer" ng-repeat='photo in dash.allPhotos' ng-if="dash.currentTab == 'allPhotos'">
+  <div class="photoFrame col-sm-4 col-xs-6" >
+    <img class='photoImage' src="{{photo.url}}" alt="" id='{{photo._id}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo == false"/>
+    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" controls></video>
+    <!-- <h2 class="photoName">{{photo.photosubjects[0]}}</h1> -->
+  </div>
+</div>
+<div class="soldPhotosContainer" ng-repeat='soldphoto in dash.soldPhotos' ng-if="dash.currentTab == 'soldPhotos'">
+  <div class="photoFrame col-sm-4 col-xs-6">
+    <div class="soldPriceOverlay">
+      ${{soldphoto.price}}
+    </div>
+    <img class='photoImage' src="{{soldphoto.url}}" alt="" />
+  </div>
+</div>
