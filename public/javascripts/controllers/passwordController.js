@@ -27,7 +27,7 @@ angular.module('passwordController', [])
           console.log('pw match');
           $http({
             method: "POST"
-            ,url: 'http://192.168.0.7:5555/api/update/pw'
+            ,url: 'https://moneyshotapi.herokuapp.com/api/update/pw'
             ,data: {_id: userId, password: newPass}
           })
           .then(function(updatedUser){
