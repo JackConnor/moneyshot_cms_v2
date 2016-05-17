@@ -128,7 +128,7 @@ section {
   padding-bottom: 70px;
   background-color: rgba(0,0,0, 0.3);
   color: white;
-  height: 540px;
+  height: 380px;
   padding-top: 30px;
   border-radius: 10px;
   display: block;
@@ -145,7 +145,7 @@ section {
   text-align: center;
   background-color: #C0CDCE;
   color: grey;
-  margin-top: 65px;
+  margin-top: 10px;
 }
 
 .selectionTab {
