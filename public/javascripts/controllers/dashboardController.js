@@ -114,6 +114,15 @@ angular.module('dashboardController', [])
       self.yesNoPopupVariable = true;
     }
 
+    //////////function to downloads file from src
+    self.downloadPhoto = function(photo) {
+      var down = document.createElement('a');
+      down.download = photo.photosubjects.join('_');
+      down.href = photo.url;
+      down.click();
+      self.closePopup();
+    }
+
     ////function to change a the active current photo to a new one
     function currentPhotoFunc(photo){
       //////photo is the whole photo object
