@@ -3,19 +3,22 @@
     X
   </div>
   <div class="yesNoContainer col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 ">
-    <div class="popupImageFrame col-sm-12 col-xs-12">
-      <img src="{{dash.currentPhoto.url}}" ng-if="!dash.currentPhoto.isVideo"/>
+    <div class="popupImageFrame col-md-6 col-sm-12">
+      <img src="{{dash.currentPhoto.url}}" ng-if="!dash.currentPhoto.isVideo"/ class=''>
       <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" controls></video>
     </div>
-    <div class="popupInfoContainer col-sm-12 col-xs-12">
-      <p>
+    <div class="popupInfoContainer col-md-6 col-sm-12">
+      <!-- <p>
         who: <span ng-repeat='person in dash.currentPhoto.photosubjects'>{{person}}, </span>
+      </p> -->
+      <p>
+        where: {{dash.currentPhoto.meta.location}}
       </p>
       <p>
-        where: {{dash.currentPhoto.location}}
+        when: {{dash.currentPhoto.meta.dateTaken}}
       </p>
       <p>
-        when: {{dash.currentPhoto.date}}
+        time: {{dash.currentPhoto.meta.timeTaken}}
       </p>
       <input type="text" placeholder='enter price' class='popupPrice'>
       <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-12 col-xs-12 col-xs-offset-0">

@@ -1,4 +1,4 @@
-angular.module('dashboardController', [])
+angular.module('dashboardController', ['allSubmissionsFactory'])
 
   .controller('dashboardCtrl', dashboardCtrl)
 
@@ -8,9 +8,9 @@ angular.module('dashboardController', [])
     };
   })
 
-  dashboardCtrl.$inject = ['$http','allPhotos', 'submitPrice', 'rejectPhoto', '$sce'];
+  dashboardCtrl.$inject = ['$http','allPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions'];
 
-  function dashboardCtrl($http, allPhotos, submitPrice, rejectPhoto, $sce){
+  function dashboardCtrl($http, allPhotos, submitPrice, rejectPhoto, $sce, allSubmissions){
     console.log($sce);
     //////////////////////////////////
     ////////begin all global variables
@@ -21,26 +21,55 @@ angular.module('dashboardController', [])
     //////////////////////////////////
 
     ///////function to load all Photos
-    allPhotos()
-    .then(function(photoList){
-      console.log(photoList)
-      self.rawPhotos = photoList.data.reverse();
-      //////lets add all the sold photos to it's own array
+    allSubmissions()
+    .then(function(subs){
+      console.log(subs);
+      self.allSubmissions = subs.data.reverse();
+      var subLength = subs.data.length;
+      if(subLength > 21){
+        var subLength = 20;
+      }
+      console.log(subLength);
+      self.allPhotos = [];
       self.soldPhotos = [];
-      self.allPhotos  = [];
-      // self.allPhotos  = [];
-      for (var i = 0; i < self.rawPhotos.length; i++) {
-        if(self.rawPhotos[i].status == 'sold || offered for sale'){
-          self.soldPhotos.push(self.rawPhotos[i]);
-        }
-        else if(self.rawPhotos[i].status == 'submitted for sale'){
-          self.allPhotos.push(self.rawPhotos[i])
+      for (var i = 0; i < subLength; i++) {
+        console.log(self.allSubmissions[i].photos);
+        var photoLength = self.allSubmissions[i].photos.length;
+        console.log(photoLength);
+        for (var k = 0; k < photoLength; k++) {
+          self.allSubmissions[i].photos[k].meta = self.allSubmissions[i].metadata;
+          if(self.allSubmissions[i].photos[k].status == 'sold || offered for sale'){
+            self.soldPhotos.push(self.allSubmissions[i].photos[k]);
+          }
+          else if(self.allSubmissions[i].photos[k].status == 'submitted for sale'){
+            self.allPhotos.push(self.allSubmissions[i].photos[k]);
+          }
+          console.log(self.allPhotos);
+          console.log(self.soldPhotos);
         }
       }
-      self.currentPhoto = self.allPhotos[0];
-      console.log('all photos')
-      console.log(self.allPhotos)
+      console.log(allPhotos);
     })
+    // allPhotos()
+    // .then(function(photoList){
+    //   console.log(photoList)
+    //   self.rawPhotos = photoList.data.reverse();
+    //   //////lets add all the sold photos to it's own array
+    //   self.soldPhotos = [];
+    //   self.allPhotos  = [];
+    //   // self.allPhotos  = [];
+    //   for (var i = 0; i < self.rawPhotos.length; i++) {
+    //     if(self.rawPhotos[i].status == 'sold || offered for sale'){
+    //       self.soldPhotos.push(self.rawPhotos[i]);
+    //     }
+    //     else if(self.rawPhotos[i].status == 'submitted for sale'){
+    //       self.allPhotos.push(self.rawPhotos[i])
+    //     }
+    //   }
+    //   self.currentPhoto = self.allPhotos[0];
+    //   console.log('all photos')
+    //   console.log(self.allPhotos)
+    // })
 
     ////////////function to controler which tab is showing;
     self.tabController = function tabController(event){
