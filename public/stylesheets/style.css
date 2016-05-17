@@ -1,3 +1,24 @@
+.changePassword {
+  margin-top: 10px;
+  margin-left: 10%;
+  width: 80%;
+  height: 60px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.changePassword.submit {
+  background-color: #000059;
+  color: white;
+  padding-top: 12px;
+}
+
+.changePassword.head {
+  font-size: 33px;
+  margin-top: 30px;
+  color: #616161;
+}
+
 html {
   background-color: #A8C4C6;
 
