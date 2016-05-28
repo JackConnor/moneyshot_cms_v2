@@ -65,7 +65,7 @@
 <div class="photosContainer" ng-repeat='photo in dash.allPhotos' ng-if="dash.currentTab == 'allPhotos'">
   <div class="photoFrame col-sm-4 col-xs-6" >
     <img class='photoImage' ng-src="{{photo.url}}" id='{{photo._id}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo == false"/>
-    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{{photo.thumbnail}}" controls></video>
+    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{photo.thumbnail}" controls></video>
     <!-- <h2 class="photoName">{{photo.photosubjects[0]}}</h1> -->
   </div>
 </div>
