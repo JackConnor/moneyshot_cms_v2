@@ -6,11 +6,12 @@ angular.module('rejectPhotoFactory', [])
 
   function rejectPhoto($http){
 
-    function sendRejection(photoId){
+    function sendRejection(photo){
+      console.log(photo);
       return $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/reject/photo"
-        ,data: {photoId: photoId}
+        ,url: "http://192.168.0.17:5555/api/reject/photo"
+        ,data: {photoId: photo.photo._id, submissionId: photo.submission}
       })
     }
 

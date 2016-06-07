@@ -41,8 +41,8 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
           if(self.allSubmissions[i].photos[k].status == 'sold || offered for sale'){
             self.soldPhotos.push(self.allSubmissions[i].photos[k]);
           }
-          else if(self.allSubmissions[i].photos[k].status == 'submitted for sale'){
-            self.allPhotos.push(self.allSubmissions[i].photos[k]);
+          else if(self.allSubmissions[i].photos[k].status == 'submitted for sale'){////submitted for sale means it comes from the user
+            self.allPhotos.push({photo: self.allSubmissions[i].photos[k], submission: self.allSubmissions[i]._id});
           }
           console.log(self.allPhotos);
           console.log(self.soldPhotos);
@@ -96,16 +96,17 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
 
     /////////////functions to submit accepted photo, with price, to the database
-    self.submitSuccessPhoto = function submitSuccessPhoto(photoId){
+    self.submitSuccessPhoto = function submitSuccessPhoto(photo){
       var price = $('.popupPrice').val();
-      submitPrice(photoId, price)
+      // var submissionId
+      submitPrice(photo.photo._id, price, photo.submission)
       .then(function(newPhoto){
         console.log(newPhoto);
         self.soldPhotos.push(newPhoto.data);
         self.yesNoPopupVariable = false;
         //////function to slice out the photo from the allphotos array
         for (var i = 0; i < self.allPhotos.length; i++) {
-          if(self.allPhotos[i]._id == photoId){
+          if(self.allPhotos[i]._id == photo.photo._id){
             self.allPhotos.splice(i, 1);
           }
         }
@@ -113,8 +114,8 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
       })
     }
 
-    self.rejectPhoto = function(photoId){
-      rejectPhoto(photoId)
+    self.rejectPhoto = function(photo){
+      rejectPhoto(photo)
       .then(function(rejectedPhoto){
         //////lets clean up the dashboard arrays
         /////allPhotosArray

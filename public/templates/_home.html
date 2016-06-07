@@ -4,8 +4,8 @@
   </div>
   <div class="yesNoContainer col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 ">
     <div class="popupImageFrame col-md-6 col-sm-12">
-      <img src="{{dash.currentPhoto.url}}" ng-if="!dash.currentPhoto.isVideo"/ class=''>
-      <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" controls></video>
+      <img src="{{dash.currentPhoto.photo.url}}" ng-if="!dash.currentPhoto.isVideo"/ class='' id="{{dash.currentPhoto.submission}}">
+      <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" id="{{dash.currentPhoto.submission}}" controls></video>
     </div>
     <div class="popupInfoContainer col-md-6 col-sm-12">
       <!-- <p>
@@ -22,10 +22,10 @@
       </p>
       <input type="text" placeholder='enter price' class='popupPrice'>
       <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-12 col-xs-12 col-xs-offset-0">
-        <div class="yesTab selectionTab col-sm-6 col-xs-6" ng-click='dash.submitSuccessPhoto(dash.currentPhoto._id)' id='{{dash.currentPhoto._id}}'>
+        <div class="yesTab selectionTab col-sm-6 col-xs-6" ng-click='dash.submitSuccessPhoto(dash.currentPhoto)' id='{{dash.currentPhoto._id}}'>
           Sell
         </div>
-        <div class="noTab selectionTab col-ms-6 col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto._id); dash.yesNoPopupVariable = false;'>
+        <div class="noTab selectionTab col-ms-6 col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto); dash.yesNoPopupVariable = false;'>
           Reject
         </div>
         <div class="downTab selectionTab col-sm-12 col-xs-12" ng-click='dash.downloadPhoto(dash.currentPhoto); dash.yesNoPopupVariable = false;'>
@@ -64,7 +64,7 @@
 </div>
 <div class="photosContainer" ng-repeat='photo in dash.allPhotos' ng-if="dash.currentTab == 'allPhotos'">
   <div class="photoFrame col-sm-4 col-xs-6" >
-    <img class='photoImage' ng-src="{{photo.url}}" id='{{photo._id}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo == false"/>
+    <img class='photoImage' ng-src="{{photo.photo.url}}" id='{{photo.submission}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.photo.isVideo == false" />
     <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{photo.thumbnail}" controls></video>
     <!-- <h2 class="photoName">{{photo.photosubjects[0]}}</h1> -->
   </div>
