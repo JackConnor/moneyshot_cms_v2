@@ -10,7 +10,7 @@ angular.module('rejectPhotoFactory', [])
       console.log(photo);
       return $http({
         method: "POST"
-        ,url: "http://192.168.0.17:5555/api/reject/photo"
+        ,url: "https://moneyshotapi.herokuapp.com/api/reject/photo"
         ,data: {photoId: photo.photo._id, submissionId: photo.submission}
       })
     }
