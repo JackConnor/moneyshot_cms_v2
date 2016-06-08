@@ -117,6 +117,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     self.rejectPhoto = function(photo){
       rejectPhoto(photo)
       .then(function(rejectedPhoto){
+        console.log(rejectedPhoto);
         //////lets clean up the dashboard arrays
         /////allPhotosArray
         for (var i = 0; i < self.allPhotos.length; i++) {
