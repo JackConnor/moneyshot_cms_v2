@@ -8,9 +8,9 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     };
   })
 
-  dashboardCtrl.$inject = ['$http','allPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions'];
+  dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions'];
 
-  function dashboardCtrl($http, allPhotos, submitPrice, rejectPhoto, $sce, allSubmissions){
+  function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions){
     console.log($sce);
     //////////////////////////////////
     ////////begin all global variables
@@ -23,6 +23,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     self.openSingleSubmission = openSingleSubmission;
     self.selectionActive = false;
     self.openCarousel = false;
+    self.allSaved = false;
     //////////end all global variables
     //////////////////////////////////
 
@@ -63,6 +64,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
       self.activeSubmission = submission;
       console.log(self.activeSubmission);
       self.submissionsOpen = false;
+      self.submissionsOpenAll = false;
       self.singleSubmissionOpen = true;
     }
 
@@ -104,18 +106,24 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
       console.log(saveOrReject);
       var photoArr = $('.selected');
       if(saveOrReject === 'reject'){
-        var photoArrLength = photoArr.length;
-        for (var i = 0; i < photoArrLength; i++) {
-          rejectPhotoFunc(photoArr[i].id, self.activeSubmission);
+        var confirming = confirm('Throw away all selcted photos?')
+        if(confirming){
+          var photoArrLength = photoArr.length;
+          for (var i = 0; i < photoArrLength; i++) {
+            rejectPhotoFunc(photoArr[i].id, self.activeSubmission);
+          }
         }
       }
       else if(saveOrReject === 'save'){
-        var photoArrLength = photoArr.length;
-        console.log(photoArrLength);
-        console.log(photoArr[0]);
-        console.log(photoArr[0].id);
-        for (var i = 0; i < photoArrLength; i++) {
-          acceptPhoto(photoArr[i], self.activeSubmission._id);
+        var confirming = confirm('Save all selected photos to sell?')
+        if(confirming){
+          var photoArrLength = photoArr.length;
+          console.log(photoArrLength);
+          console.log(photoArr[0]);
+          console.log(photoArr[0].id);
+          for (var i = 0; i < photoArrLength; i++) {
+            acceptPhoto(photoArr[i], self.activeSubmission._id);
+          }
         }
       }
     }
@@ -170,6 +178,43 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
     self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
 
+    function openAllSaved(){
+      allSavedPhotos()
+      .then(function(savedPhotos){
+        console.log(savedPhotos);
+        self.savedPhotos = savedPhotos.data;
+        self.submissionsOpen = false;
+        self.submissionsOpenAll = false;
+        self.allSaved = true;
+      }, function(err){
+        console.log(err);
+      })
+    }
+    self.openAllSaved = openAllSaved;
+
+    function getSavedPhotos(){
+      var allSaved = self.savedPhotos;
+      var savedLength = allSaved.length;
+      var emailCache = [];
+      for (var i = 0; i < savedLength; i++) {
+        console.log(allSaved[i]);
+        var elId = allSaved[i]._id
+        $http({
+          method: "POST"
+          ,url: "http://192.168.0.3:5555/api/accepted/savedPhoto"
+          ,data: {_id: elId, status: "downloaded"}
+        })
+        .then(function(updatedPhoto){
+          console.log(updatedPhoto);
+          emailCache.push(updatedPhoto.data._id);
+          if(i === savedLength-1){
+            console.log('you did it!!!!!');
+            console.log(emailCache);
+          }
+        })
+      }
+    }
+    self.getSavedPhotos = getSavedPhotos;
 
     // allPhotos()
     // .then(function(photoList){

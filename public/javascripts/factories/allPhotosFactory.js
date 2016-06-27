@@ -1,6 +1,6 @@
 angular.module('allPhotosFactory', [])
 
-  .factory('allPhotos', allPhotos);
+  .factory('allSavedPhotos', allPhotos);
 
   allPhotos.$inject = ["$http"];
 
@@ -8,7 +8,7 @@ angular.module('allPhotosFactory', [])
     function getPhotos(){
       return $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/allPhotos"
+        ,url: "http://192.168.0.3:5555/api/allSavedPhotos"
       })
     }
     return getPhotos;

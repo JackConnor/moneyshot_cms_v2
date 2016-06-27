@@ -79,6 +79,11 @@
 </div> -->
 
 <div class="submissionsContainer">
+  <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll || dash.allSaved'>
+    <span class='allNewPhotosTab photoTab col-xs-4' ng-click='dash.unprocessedSubmissionsFunc()'>New Submissions</span>
+    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.allSubmissionsFunc()'>All Submissions</span>
+    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()'>All Saved</span>
+  </div>
 
   <!-- photo carousel modal -->
   <div class="photoCarousel" ng-if='dash.openCarousel'>
@@ -101,22 +106,18 @@
     <!-- all photos modal -->
     <div class="singleAllPhotosContainer">
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='!photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
-        <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
+        <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
       </div>
 
     </div>
     <div class="singleMetaDataHolder">
       <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
     </div>
-    <div class='selectButtonHolder' ng-click='dash.selectionActive'>
+    <div class='selectButtonHolder' ng-click='dash.selectionActive' ng-if='dash.selectionActive'>
       <span class="rejectButton submitButton col-xs-6" ng-click="dash.saveOrRejectFunc('reject')">Reject All</span>
       <span class="acceptButton submitButton col-xs-6" ng-click='dash.saveOrRejectFunc("save")'>Save All</span>
     </div>
-  </div>
-  <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll'>
-    <span class='allNewPhotosTab photoTab col-xs-6' ng-click='dash.unprocessedSubmissionsFunc()'>New Submissions</span>
-    <span class='allPhotosTab photoTab col-xs-6' ng-click='dash.allSubmissionsFunc()'>All Submissions</span>
   </div>
   <!-- /////begin repeat -->
   <div class="submissionCell" ng-repeat='submission in dash.allSubmissions' ng-if='dash.submissionsOpen && submission.status==="pending"' ng-click='dash.openSingleSubmission(submission)'>
@@ -136,6 +137,17 @@
     </div>
     <div class="submissionDataHolder">
       {{submission.metadata.date}}<br>{{submission.metadata.who}}<br>{{submission.metadata.what}}
+    </div>
+  </div>
+  <!-- all saved photos modal -->
+  <div class="allSavedPhotosContainer" ng-if='dash.allSaved'>
+    <div class="savedPhotosContainer">
+      <div class="savedPhotoCell col-xs-4 col-sm-3 col-md-2" ng-repeat='photo in dash.savedPhotos'>
+        <img src="{{photo.url}}" alt="" />
+      </div>
+    </div>
+    <div class="savedEmailAll" ng-click='dash.getSavedPhotos()'>
+      Get These Photos
     </div>
   </div>
 </div>
