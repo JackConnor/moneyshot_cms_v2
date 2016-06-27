@@ -111,7 +111,7 @@
     </div>
     <div class='selectButtonHolder' ng-click='dash.selectionActive'>
       <span class="rejectButton submitButton col-xs-6" ng-click="dash.saveOrRejectFunc('reject')">Reject All</span>
-      <span class="acceptButton submitButton col-xs-6">Save All</span>
+      <span class="acceptButton submitButton col-xs-6" ng-click='dash.acceptPhoto(dash.activeSubmission.photos[0], dash.activeSubmission._id )'>Save All</span>
     </div>
   </div>
   <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen'>

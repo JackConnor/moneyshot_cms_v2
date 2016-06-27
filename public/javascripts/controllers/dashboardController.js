@@ -127,6 +127,17 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
     self.saveOrRejectFunc = saveOrRejectFunc;
 
+    function acceptPhoto(photo, submissionId){
+      console.log(photo);
+      console.log(submissionId);
+      submitPrice(photo._id, submissionId)
+      .then(function(acceptedPhoto){
+        console.log(acceptedPhoto);
+      },function(err){
+        console.log(err);
+      })
+    }
+    self.acceptPhoto = acceptPhoto;
 
 
     // allPhotos()
