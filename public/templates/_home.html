@@ -101,13 +101,17 @@
     <!-- all photos modal -->
     <div class="singleAllPhotosContainer">
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='!photo.isVideo' ng-click='dash.photoClickFunc($event)'/>
-        <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo' ng-click='dash.photoClickFunc($event)'></video>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='!photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)'/>
+        <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)'></video>
       </div>
 
     </div>
     <div class="singleMetaDataHolder">
-
+      <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
+    </div>
+    <div class='selectButtonHolder' ng-click='dash.selectionActive'>
+      <span class="rejectButton submitButton col-xs-6">Reject All</span>
+      <span class="acceptButton submitButton col-xs-6">Save All</span>
     </div>
   </div>
 
