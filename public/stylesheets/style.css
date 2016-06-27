@@ -244,6 +244,14 @@ section {
 ///////////////
 ///////////////*/
 
+.singleAllPhotosContainer {
+  width: 95%;
+  margin-left: 2.5%;
+  height: 450px;
+  border: 2px solid red;
+  overflow-y: scroll;
+}
+
 .singleBack {
   height: 80px;
   /*border: 2px solid green;*/
@@ -251,6 +259,25 @@ section {
   text-align: left;
   padding-left: 15px;
   padding-top: 15px;
+}
+
+.singleBack i{
+  padding-right: 10px;
+}
+
+.singlePhotoCell {
+}
+
+.singlePhotoCell img {
+  padding: 0px;
+  height: 370px;
+  /*border: 1px solid white;*/
+}
+
+.singlePhotoCell video {
+  padding: 0px;
+  height: 370px;
+  background-color: grey;
 }
 
 .singleSelect {

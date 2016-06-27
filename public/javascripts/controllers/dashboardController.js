@@ -21,6 +21,8 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     self.singleSubmissionOpen = false;
     self.activeSubmission = {}
     self.openSingleSubmission = openSingleSubmission;
+    self.selectionActive = false;
+    self.openCarousel = false;
     //////////end all global variables
     //////////////////////////////////
 
@@ -59,10 +61,50 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     ////////funciotn to click through to single submission
     function openSingleSubmission(submission){
       self.activeSubmission = submission;
+      console.log(self.activeSubmission);
       self.submissionsOpen = false;
       self.singleSubmissionOpen = true;
     }
 
+    function backToList(){
+      self.submissionsOpen = true;
+      self.singleSubmissionOpen = false;
+    }
+    self.backToList = backToList;
+
+    function activateSelection(){
+      if(!self.selectionActive){
+        self.selectionActive = true;
+      }
+      else {
+        self.selectionActive = false;
+      }
+    }
+    self.activateSelection = activateSelection;
+
+    function photoClickFunc(evt){
+      if(!self.selectionActive){
+        self.singleSubmissionOpen = false;
+        self.openCarousel = true;
+      }
+      else if(self.selectionActive === true){
+        var isSelected = $(evt.currentTarget).hasClass('selected');
+        if(!isSelected){
+          console.log(evt.currentTarget);
+          $(evt.currentTarget).addClass('selected');
+          $(evt.currentTarget).css({
+            border: '3px solid green'
+          });
+        }
+        else {
+          $(evt.currentTarget).removeClass('selected');
+          $(evt.currentTarget).css({
+            border: '0px solid green'
+          });
+        }
+      }
+    }
+    self.photoClickFunc = photoClickFunc;
 
 
 
