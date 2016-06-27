@@ -82,18 +82,18 @@
 
   <!-- photo carousel modal -->
   <div class="photoCarousel" ng-if='dash.openCarousel'>
-Carousel
+    Carousel
   </div>
 
   <!-- single submission modal -->
   <div class="singleSubmissionContainer" ng-if='dash.singleSubmissionOpen'>
     <!-- {{dash.activeSubmission}} -->
     <div class="singleSubmissionHeader">
-      <div class="singleBack col-xs-3" ng-click='dash.backToList()'>
+      <div class="singleBack col-xs-4" ng-click='dash.backToList()'>
         <i class='fa fa-chevron-left'></i>Back
 
       </div>
-      <div class="singleSelect col-xs-3 col-xs-offset-6" ng-click='dash.activateSelection()'>
+      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()'>
         Select
       </div>
     </div>
@@ -101,9 +101,12 @@ Carousel
     <!-- all photos modal -->
     <div class="singleAllPhotosContainer">
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.url}}" class='col-xs-3' ng-if='!photo.isVideo' ng-click='dash.photoClickFunc($event)'/>
-        <video src="{{photo.url | trustUrl}}"  class='col-xs-3' ng-if='photo.isVideo' ng-click='dash.photoClickFunc($event)'></video>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='!photo.isVideo' ng-click='dash.photoClickFunc($event)'/>
+        <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo' ng-click='dash.photoClickFunc($event)'></video>
       </div>
+
+    </div>
+    <div class="singleMetaDataHolder">
 
     </div>
   </div>

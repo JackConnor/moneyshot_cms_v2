@@ -244,25 +244,35 @@ section {
 ///////////////
 ///////////////*/
 
+.selected {
+  border: 3px solid grey;
+}
+
 .singleAllPhotosContainer {
   width: 95%;
   margin-left: 2.5%;
-  height: 450px;
+  height: 350px;
   border: 2px solid red;
   overflow-y: scroll;
 }
 
 .singleBack {
-  height: 80px;
+  height: 50px;
   /*border: 2px solid green;*/
   font-size: 25px;
   text-align: left;
   padding-left: 15px;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
 .singleBack i{
   padding-right: 10px;
+}
+
+.singleMetaDataHolder {
+  width: 100%;
+  height: 80px;
+  border: 1px solid black;
 }
 
 .singlePhotoCell {
@@ -270,29 +280,29 @@ section {
 
 .singlePhotoCell img {
   padding: 0px;
-  height: 370px;
+  height: auto;
   /*border: 1px solid white;*/
 }
 
 .singlePhotoCell video {
   padding: 0px;
-  height: 370px;
-  background-color: grey;
+  height: auto;
+  /*background-color: grey;*/
 }
 
 .singleSelect {
   font-size: 25px;
-  height: 80px;
+  height: 50px;
   float: right;
   top: 0;
   text-align: right;
   padding-right: 15px;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
 .singleSubmissionHeader {
   width: 100%;
-  height: 80px;
+  height: 50px;
   border: 2px solid black;
 }
 

@@ -92,15 +92,9 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
         if(!isSelected){
           console.log(evt.currentTarget);
           $(evt.currentTarget).addClass('selected');
-          $(evt.currentTarget).css({
-            border: '3px solid green'
-          });
         }
         else {
           $(evt.currentTarget).removeClass('selected');
-          $(evt.currentTarget).css({
-            border: '0px solid green'
-          });
         }
       }
     }
