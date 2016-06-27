@@ -100,6 +100,33 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
     self.photoClickFunc = photoClickFunc;
 
+    function rejectPhotoFunc(photo, submission){
+      console.log(photo);
+      console.log(submission);
+      rejectPhoto(photo, submission._id)
+      .then(function(rejectedPhoto){
+        console.log(rejectedPhoto);
+      })
+      .catch(function(err){
+        console.log(err);
+      });
+    }
+    self.rejectPhotoFunc = rejectPhotoFunc;
+
+    function saveOrRejectFunc(saveOrReject){
+      console.log(saveOrReject);
+      var photoArr = $('.selected');
+      console.log(photoArr[0].id);
+      if(saveOrReject === 'reject'){
+        var photoArrLength = photoArr.length;
+        for (var i = 0; i < photoArrLength; i++) {
+          console.log(photoArr[i]);
+          rejectPhotoFunc(photoArr[i].id, self.activeSubmission);
+        }
+      }
+    }
+    self.saveOrRejectFunc = saveOrRejectFunc;
+
 
 
     // allPhotos()
