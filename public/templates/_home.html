@@ -1,4 +1,4 @@
-<div class="yesNoPopup" ng-if='dash.yesNoPopupVariable'>
+<!-- <div class="yesNoPopup" ng-if='dash.yesNoPopupVariable'>
   <div class="xOutPopup" ng-click='dash.closePopup()'>
     X
   </div>
@@ -7,11 +7,11 @@
       <img src="{{dash.currentPhoto.photo.url}}" ng-if="!dash.currentPhoto.isVideo"/ class='' id="{{dash.currentPhoto.submission}}">
       <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" id="{{dash.currentPhoto.submission}}" controls></video>
     </div>
-    <div class="popupInfoContainer col-md-6 col-sm-12">
+    <div class="popupInfoContainer col-md-6 col-sm-12"> -->
       <!-- <p>
         who: <span ng-repeat='person in dash.currentPhoto.photosubjects'>{{person}}, </span>
       </p> -->
-      <p>
+      <!-- <p>
         where: {{dash.currentPhoto.meta.location}}
       </p>
       <p>
@@ -65,9 +65,9 @@
 <div class="photosContainer" ng-repeat='photo in dash.allPhotos' ng-if="dash.currentTab == 'allPhotos'">
   <div class="photoFrame col-sm-4 col-xs-6" >
     <img class='photoImage' ng-src="{{photo.photo.url}}" id='{{photo.submission}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.photo.isVideo == false" />
-    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{photo.thumbnail}" controls></video>
+    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{photo.thumbnail}" controls></video> -->
     <!-- <h2 class="photoName">{{photo.photosubjects[0]}}</h1> -->
-  </div>
+  <!-- </div>
 </div>
 <div class="soldPhotosContainer" ng-repeat='soldphoto in dash.soldPhotos' ng-if="dash.currentTab == 'soldPhotos'">
   <div class="photoFrame col-sm-4 col-xs-6">
@@ -76,4 +76,33 @@
     </div>
     <img class='photoImage' src="{{soldphoto.url}}" alt="" />
   </div>
+</div> -->
+
+<div class="submissionsContainer">
+  <div class="singleSubmissionContainer" ng-if='dash.singleSubmissionOpen'>
+    <!-- {{dash.activeSubmission}} -->
+    <div class="singleSubmissionHeader">
+      <div class="singleBack col-xs-3">
+        <i class='fa fa-chevron-left'></i>Back
+
+      </div>
+      <div class="singleSelect col-xs-3 col-xs-offset-6">
+        Select
+      </div>
+    </div>
+    <div class="">
+
+    </div>
+  </div>
+
+  <div class="submissionCell" ng-repeat='submission in dash.allSubmissions' ng-if='dash.submissionsOpen' ng-click='dash.openSingleSubmission(submission)'>
+    <!-- {{submission}} -->
+    <div class="submissionImageHolder">
+      <img src="{{submission.photos[0].thumbnail}}" alt="" />
+    </div>
+    <div class="submissionDataHolder">
+      {{submission.metadata.date}}<br>{{submission.metadata.who}}<br>{{submission.metadata.what}}
+    </div>
+  </div>
+
 </div>
