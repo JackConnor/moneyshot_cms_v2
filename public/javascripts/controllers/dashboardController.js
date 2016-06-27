@@ -145,6 +145,31 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
     self.rejectPhotoFunc = rejectPhotoFunc;
 
+    // function toggleTabs(){
+    //   console.log(self.submissionsOpen);
+    //   if(self.submissionsOpen === true){
+    //     self.submissionsOpen = false;
+    //     self.submissionsOpenAll = true;
+    //   }
+    //   if(self.submissionsOpen === false){
+    //     self.submissionsOpen = true;
+    //     self.submissionsOpenAll = false;
+    //   }
+    // }
+    // self.toggleTabs = toggleTabs;
+
+    function allSubmissionsFunc(){
+      self.submissionsOpen = false;
+      self.submissionsOpenAll = true;
+    }
+    self.allSubmissionsFunc = allSubmissionsFunc;
+
+    function unprocessedSubmissionsFunc(){
+      self.submissionsOpen = true;
+      self.submissionsOpenAll = false;
+    }
+    self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
+
 
     // allPhotos()
     // .then(function(photoList){

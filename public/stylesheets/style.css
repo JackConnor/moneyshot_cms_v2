@@ -334,6 +334,12 @@ section {
   border-bottom: 1px solid gray;
 }
 
+.submissionCellAll {
+  width: 100%;
+  height: 120px;
+  border-bottom: 1px solid gray;
+}
+
 .submissionDataHolder {
   display: inline-block;
   padding-left: 15px;
