@@ -11,53 +11,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
   dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions', 'Upload'];
 
   function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions, Upload){
-    // var zip = new JSZip();
-    // var img = zip.folder('images');
-    // console.log(img);
-    // var newPic = "http://res.cloudinary.com/drjseeoep/image/upload/v1465489790/usxutcypkbfp2i4v6iyv.jpg"
-    // console.log(getBase64FromImageUrl(newPic));
-    // img.file('hellllllo.jpg', newPic, {base64: true});
-    // console.log(img);
-    JSZipUtils.getBinaryContent("http://res.cloudinary.com/drjseeoep/image/upload/v1465489790/usxutcypkbfp2i4v6iyv.jpg", function (err, data) {
-       if(err) {
-          throw err; // or handle the error
-       }
-       var zip = new JSZip();
-       zip.file("picture.png", data, {binary:true});
-       console.log(zip);
-       zip.generateAsync({type: 'blob'})
-       .then(function(newPhoto){
-         console.log(newPhoto);
-         saveAs(newPhoto, "hello.zip");
-       })
-       .catch(function(err){
-         console.log(err);
-       })
-    });
-    // function getBase64FromImageUrl(url) {
-    //   var img = new Image();
-    //
-    //   img.setAttribute('crossOrigin', 'anonymous');
-    //   img.src = url;
-    //
-    //   img.onload = function () {
-    //     var canvas = document.createElement("canvas");
-    //     canvas.width =this.width;
-    //     canvas.height =this.height;
-    //
-    //     var ctx = canvas.getContext("2d");
-    //     ctx.drawImage(this, 0, 0); //////important, THIS is the image
-    //     var dataURL = canvas.toDataURL("image/png");
-    //     dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-    //     console.log(dataURL);
-    //     // CameraRoll.saveToCameraRoll(dataURL, function(){
-    //     // }, function(err){
-    //     //   console.log(err);
-    //     // });
-    //   };
-    // }
-
-    // zip.file("Hello.txt", "Hello World\n");
     //////////////////////////////////
     ////////begin all global variables
     var self = this;
@@ -267,6 +220,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       var allSaved = self.savedPhotos;
       var savedLength = allSaved.length;
       var emailCache = [];
+      var zipUrlCache = [];
+      var zip = new JSZip();
+
       for (var i = 0; i < savedLength; i++) {
         console.log(allSaved[i]);
         var elId = allSaved[i]._id
@@ -278,7 +234,15 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           })
           .then(function(updatedPhoto){
             console.log(updatedPhoto);
-            emailCache.push(updatedPhoto.data._id);
+            // emailCache.push(updatedPhoto.data._id);
+            JSZipUtils.getBinaryContent(updatedPhoto.data.url, function (err, data) {
+               if(err) {
+                  throw err; // or handle the error
+               }
+               zip.file(updatedPhoto.data._id+".jpg", data, {binary:true});
+               console.log(zip);
+
+            });
           });
         }
         else {
@@ -290,19 +254,26 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           })
           .then(function(updatedPhoto){
             console.log(updatedPhoto);
-            emailCache.push(updatedPhoto.data._id);
-            console.log('you did it!!!!!');
-            console.log(emailCache);
-            // $http({
-            //   method: "POST"
-            //   ,url: 'http://45.55.24.234/api/emailallphotos'
-            //   ,data: {emailCache: emailCache}
-            // })
-            // .then(function(err, data){
-            //   console.log('callback');
-            //   console.log(data);
-            // })
-            /////////now we will give them the options to either download or email photo batch
+            console.log('ya yaaaaaa');
+            // emailCache.push(updatedPhoto.data._id);
+            JSZipUtils.getBinaryContent(updatedPhoto.data.url, function (err, data) {
+               if(err) {
+                  throw err; // or handle the error
+               }
+               zip.file(updatedPhoto.data._id+".jpg", data, {binary:true});
+               console.log(zip);
+               setTimeout(function(){
+                 zip.generateAsync({type: 'blob'})
+                 .then(function(newPhoto){
+                   console.log(newPhoto);
+                   saveAs(newPhoto, "hello.zip");
+                 })
+                 .catch(function(err){
+                   console.log(err);
+                 })
+               }, 10000)
+
+            });
           });
         }
       }
