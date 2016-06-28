@@ -78,14 +78,14 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
 
     function backToList(){
-      if(self.submissionsOpenAll === false){
+      console.log(self.allPhotosSubmission);
+      if(self.allPhotosSubmission === false){
         console.log('normal');
         self.submissionsOpen = true;
         self.singleSubmissionOpen = false;
-        self.allPhotosSubmission = false;
         self.submissionsOpenAll = false;
       }
-      else if(self.submissionsOpenAll){
+      else if(self.allPhotosSubmission){
         console.log('all submissions');
         self.submissionsOpen = false;
         self.singleSubmissionOpen = false;
