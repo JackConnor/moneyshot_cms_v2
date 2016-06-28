@@ -119,6 +119,17 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.activateSelection = activateSelection;
 
     function photoClickFunc(evt){
+      if(self.allSaved){
+        self.carouselPhotos = self.savedPhotos;
+      }
+      else if(self.submissionsOpen){
+        self.carouselPhotos = self.activeSubmission.photos;
+      }
+      else if(self.submissionsOpenAll){
+        self.carouselPhotos = self.activeSubmission.photos;
+      }
+
+
       if(!self.selectionActive){
         self.singleSubmissionOpen = false;
         self.openCarousel = true;

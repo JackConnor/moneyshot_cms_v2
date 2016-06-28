@@ -90,6 +90,13 @@
     <div class="carouselImageHolder">
       <img src="{{dash.currentCarPhoto.url}}" alt="" />
     </div>
+    <div class="carouselOuterTunnel">
+      <div class="carouselTunnel">
+        <div class="carouselCell" ng-repeat='photo in dash.carouselPhotos'>
+          <img src="{{photo.url}}" alt="" />
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- single submission modal -->
