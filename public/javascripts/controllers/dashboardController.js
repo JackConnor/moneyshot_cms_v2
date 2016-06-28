@@ -102,6 +102,12 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
       else {
         self.selectionActive = false;
+        var allSelects = $('.selected')
+        var selectsLength = allSelects;
+        console.log(allSelects);
+        for (var i = 0; i < selectsLength.length; i++) {
+          $(selectsLength[i]).removeClass('selected');
+        }
       }
     }
     self.activateSelection = activateSelection;
@@ -114,7 +120,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       else if(self.selectionActive === true){
         var isSelected = $(evt.currentTarget).hasClass('selected');
         if(!isSelected){
-          console.log(evt.currentTarget);
           $(evt.currentTarget).addClass('selected');
         }
         else {
