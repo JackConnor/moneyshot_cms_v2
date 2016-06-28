@@ -215,16 +215,14 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
     self.openAllSaved = openAllSaved;
 
-    /////this function send all saved photos (that haven't been downloaded or which he selects)
+    /////this function send all saved photos to admin via zip (that haven't been downloaded or which he selects)
     function getSavedPhotos(){
       var allSaved = self.savedPhotos;
       var savedLength = allSaved.length;
       var emailCache = [];
       var zipUrlCache = [];
       var zip = new JSZip();
-
       for (var i = 0; i < savedLength; i++) {
-        console.log(allSaved[i]);
         var elId = allSaved[i]._id
         if(i !== savedLength-1){
           $http({
@@ -233,39 +231,29 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
-            console.log(updatedPhoto);
-            // emailCache.push(updatedPhoto.data._id);
             JSZipUtils.getBinaryContent(updatedPhoto.data.url, function (err, data) {
                if(err) {
                   throw err; // or handle the error
                }
                zip.file(updatedPhoto.data._id+".jpg", data, {binary:true});
-               console.log(zip);
-
             });
           });
         }
         else {
-          console.log('last iiiiiiiiiiiiii');
           $http({
             method: "POST"
             ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
-            console.log(updatedPhoto);
-            console.log('ya yaaaaaa');
-            // emailCache.push(updatedPhoto.data._id);
             JSZipUtils.getBinaryContent(updatedPhoto.data.url, function (err, data) {
                if(err) {
                   throw err; // or handle the error
                }
                zip.file(updatedPhoto.data._id+".jpg", data, {binary:true});
-               console.log(zip);
                setTimeout(function(){
                  zip.generateAsync({type: 'blob'})
                  .then(function(newPhoto){
-                   console.log(newPhoto);
                    saveAs(newPhoto, "hello.zip");
                  })
                  .catch(function(err){
