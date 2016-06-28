@@ -253,6 +253,19 @@ section {
   padding-top: 10px;
 }
 
+.savedEmailAll {
+  height: 65px;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 900;
+  padding-top: 10px;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
 .savedPhotoCell {
   padding: 0px;
   height: auto;
@@ -265,7 +278,7 @@ section {
 
 .savedPhotosContainer {
   width: 100%;
-  height: 350px;
+  height: 375px;
   overflow-y: scroll;
 }
 

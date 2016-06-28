@@ -134,7 +134,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
       console.log('saving');
       submitPrice(photo.id, submissionId)
       .then(function(acceptedPhoto){
-
+        console.log(acceptedPhoto);
       },function(err){
         console.log(err);
       });
@@ -169,16 +169,19 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     function allSubmissionsFunc(){
       self.submissionsOpen = false;
       self.submissionsOpenAll = true;
+      self.allSaved = false;
     }
     self.allSubmissionsFunc = allSubmissionsFunc;
 
     function unprocessedSubmissionsFunc(){
       self.submissionsOpen = true;
       self.submissionsOpenAll = false;
+      self.allSaved = false;
     }
     self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
 
     function openAllSaved(){
+      console.log('rolling');
       allSavedPhotos()
       .then(function(savedPhotos){
         console.log(savedPhotos);
@@ -201,7 +204,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
         var elId = allSaved[i]._id
         $http({
           method: "POST"
-          ,url: "http://192.168.0.3:5555/api/accepted/savedPhoto"
+          ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
           ,data: {_id: elId, status: "downloaded"}
         })
         .then(function(updatedPhoto){

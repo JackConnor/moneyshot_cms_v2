@@ -141,6 +141,9 @@
   </div>
   <!-- all saved photos modal -->
   <div class="allSavedPhotosContainer" ng-if='dash.allSaved'>
+    <div class="col-xs-4 col-xs-offset-8">
+      Select
+    </div>
     <div class="savedPhotosContainer">
       <div class="savedPhotoCell col-xs-4 col-sm-3 col-md-2" ng-repeat='photo in dash.savedPhotos'>
         <img src="{{photo.url}}" alt="" />

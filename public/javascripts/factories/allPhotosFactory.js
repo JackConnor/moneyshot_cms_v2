@@ -8,7 +8,7 @@ angular.module('allPhotosFactory', [])
     function getPhotos(){
       return $http({
         method: "GET"
-        ,url: "http://192.168.0.3:5555/api/allSavedPhotos"
+        ,url: "https://moneyshotapi.herokuapp.com/api/allSavedPhotos"
       })
     }
     return getPhotos;
