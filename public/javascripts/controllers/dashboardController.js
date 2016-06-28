@@ -81,12 +81,14 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       if(self.allPhotosSubmission === false){
         console.log('normal');
         self.submissionsOpen = true;
+        self.selectionActive = false;
         self.singleSubmissionOpen = false;
         self.submissionsOpenAll = false;
       }
       else if(self.allPhotosSubmission){
         console.log('all submissions');
         self.submissionsOpen = false;
+        self.selectionActive = false;
         self.singleSubmissionOpen = false;
         self.allPhotosSubmission = false;
         self.submissionsOpenAll = true;
@@ -190,6 +192,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       self.submissionsOpen = false;
       self.submissionsOpenAll = true;
       self.allSaved = false;
+      self.selectionActive = false;
     }
     self.allSubmissionsFunc = allSubmissionsFunc;
 
@@ -197,6 +200,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       self.submissionsOpen = true;
       self.submissionsOpenAll = false;
       self.allSaved = false;
+      self.selectionActive = false;
     }
     self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
 
@@ -208,6 +212,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.savedPhotos = savedPhotos.data;
         self.submissionsOpen = false;
         self.submissionsOpenAll = false;
+        self.selectionActive = false;
         self.allSaved = true;
       }, function(err){
         console.log(err);
