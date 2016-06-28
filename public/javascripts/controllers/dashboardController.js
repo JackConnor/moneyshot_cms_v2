@@ -1,4 +1,4 @@
-angular.module('dashboardController', ['allSubmissionsFactory'])
+angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
   .controller('dashboardCtrl', dashboardCtrl)
 
@@ -8,10 +8,10 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     };
   })
 
-  dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions'];
+  dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions', 'Upload'];
 
-  function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions){
-    console.log($sce);
+  function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions, Upload){
+    console.log(Upload);
     //////////////////////////////////
     ////////begin all global variables
     var self = this;
@@ -61,16 +61,37 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
 
     ////////funciotn to click through to single submission
     function openSingleSubmission(submission){
-      self.activeSubmission = submission;
-      console.log(self.activeSubmission);
-      self.submissionsOpen = false;
-      self.submissionsOpenAll = false;
-      self.singleSubmissionOpen = true;
+      if(self.submissionsOpen){
+        self.activeSubmission = submission;
+        self.submissionsOpen = false;
+        self.submissionsOpenAll = false;
+        self.singleSubmissionOpen = true;
+        self.allPhotosSubmission = false;
+      }
+      else {
+        self.activeSubmission = submission;
+        self.submissionsOpen = false;
+        self.submissionsOpenAll = false;
+        self.singleSubmissionOpen = true;
+        self.allPhotosSubmission = true;
+      }
     }
 
     function backToList(){
-      self.submissionsOpen = true;
-      self.singleSubmissionOpen = false;
+      if(self.submissionsOpenAll === false){
+        console.log('normal');
+        self.submissionsOpen = true;
+        self.singleSubmissionOpen = false;
+        self.allPhotosSubmission = false;
+        self.submissionsOpenAll = false;
+      }
+      else if(self.submissionsOpenAll){
+        console.log('all submissions');
+        self.submissionsOpen = false;
+        self.singleSubmissionOpen = false;
+        self.allPhotosSubmission = false;
+        self.submissionsOpenAll = true;
+      }
     }
     self.backToList = backToList;
 
@@ -195,6 +216,7 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
     }
     self.openAllSaved = openAllSaved;
 
+    /////this function send all saved photos (that haven't been downloaded or which he selects)
     function getSavedPhotos(){
       var allSaved = self.savedPhotos;
       var savedLength = allSaved.length;
@@ -202,19 +224,41 @@ angular.module('dashboardController', ['allSubmissionsFactory'])
       for (var i = 0; i < savedLength; i++) {
         console.log(allSaved[i]);
         var elId = allSaved[i]._id
-        $http({
-          method: "POST"
-          ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
-          ,data: {_id: elId, status: "downloaded"}
-        })
-        .then(function(updatedPhoto){
-          console.log(updatedPhoto);
-          emailCache.push(updatedPhoto.data._id);
-          if(i === savedLength-1){
+        if(i !== savedLength-1){
+          $http({
+            method: "POST"
+            ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
+            ,data: {_id: elId, status: "downloaded"}
+          })
+          .then(function(updatedPhoto){
+            console.log(updatedPhoto);
+            emailCache.push(updatedPhoto.data._id);
+          });
+        }
+        else {
+          console.log('last iiiiiiiiiiiiii');
+          $http({
+            method: "POST"
+            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
+            ,data: {_id: elId, status: "downloaded"}
+          })
+          .then(function(updatedPhoto){
+            console.log(updatedPhoto);
+            emailCache.push(updatedPhoto.data._id);
             console.log('you did it!!!!!');
             console.log(emailCache);
-          }
-        })
+            $http({
+              method: "POST"
+              ,url: 'http://192.168.0.5:5555/api/emailallphotos'
+              ,data: {emailCache: emailCache}
+            })
+            .then(function(err, data){
+              console.log('callback');
+              console.log(data);
+            })
+            /////////now we will give them the options to either download or email photo batch
+          });
+        }
       }
     }
     self.getSavedPhotos = getSavedPhotos;

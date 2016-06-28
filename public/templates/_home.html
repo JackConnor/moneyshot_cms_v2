@@ -104,13 +104,19 @@
     </div>
 
     <!-- all photos modal -->
-    <div class="singleAllPhotosContainer">
+    <div class="singleAllPhotosContainer" ng-if='!dash.allPhotosSubmission'>
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
         <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
         <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
       </div>
-
     </div>
+    <div class="singleAllPhotosContainer" ng-if='dash.allPhotosSubmission'>
+      <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
+        <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
+      </div>
+    </div>
+
     <div class="singleMetaDataHolder">
       <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
     </div>
