@@ -98,7 +98,10 @@
         <i class='fa fa-chevron-left'></i>Back
 
       </div>
-      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()'>
+      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
+        Select
+      </div>
+      <div class="singleSelect singleSelected col-xs-4 col-xs-offset-4" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
         Select
       </div>
     </div>
@@ -112,7 +115,7 @@
     </div>
     <div class="singleAllPhotosContainer" ng-if='dash.allPhotosSubmission'>
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-click='dash.photoClickFunc($event)' id='{{photo}}'/>
         <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
       </div>
     </div>
@@ -120,7 +123,7 @@
     <div class="singleMetaDataHolder">
       <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
     </div>
-    <div class="savedEmailAll" ng-click='dash.getSavedPhotos()' ng-if='dash.allPhotosSubmission'>
+    <div class="savedEmailAll" ng-click='dash.getOldSubmissionPhotos()' ng-if='dash.allPhotosSubmission'>
       Get These Photos
     </div>
     <div class='selectButtonHolder' ng-click='dash.selectionActive' ng-if='dash.selectionActive && !dash.allPhotosSubmission'>
@@ -158,7 +161,7 @@
         <img src="{{photo.url}}" alt="" />
       </div>
     </div>
-    <div class="savedEmailAll" ng-click='dash.getSavedPhotos()'>
+    <div class="savedEmailAll" ng-click='dash.getSavedPhotos(dash.savedPhotos)'>
       Get These Photos
     </div>
   </div>

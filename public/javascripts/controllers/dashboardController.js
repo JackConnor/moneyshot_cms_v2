@@ -226,10 +226,10 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.openAllSaved = openAllSaved;
 
     /////this function send all saved photos to admin via zip (that haven't been downloaded or which he selects)
-    function getSavedPhotos(){
-      var allSaved = self.savedPhotos;
+    function getSavedPhotos(allSaved){
+      console.log(allSaved);
+      // var allSaved = self.savedPhotos;
       var savedLength = allSaved.length;
-      var emailCache = [];
       var zipUrlCache = [];
       var zip = new JSZip();
       for (var i = 0; i < savedLength; i++) {
@@ -237,7 +237,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         if(i !== savedLength-1){
           $http({
             method: "POST"
-            ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
+            ,url: "http://192.168.0.9:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
@@ -252,7 +252,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         else {
           $http({
             method: "POST"
-            ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
+            ,url: "http://192.168.0.9:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
@@ -277,6 +277,25 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
     }
     self.getSavedPhotos = getSavedPhotos;
+
+    function getOldSubmissionPhotos(){
+      if(self.selectionActive){
+        var selectedPhotos = $('.selected');
+        var selectedLength = selectedPhotos.length;
+        var selectedUrlCache = [];
+        for (var i = 0; i < selectedLength; i++) {
+          selectedUrlCache.push(JSON.parse(selectedPhotos[i].id));
+          console.log(selectedUrlCache);
+          if(i === selectedLength-1){
+            setTimeout(function(){
+              getSavedPhotos(selectedUrlCache);
+            }, 200);
+          }
+        }
+      }
+      // getSavedPhotos(selectedPhotos)
+    }
+    self.getOldSubmissionPhotos = getOldSubmissionPhotos;
 
     // allPhotos()
     // .then(function(photoList){

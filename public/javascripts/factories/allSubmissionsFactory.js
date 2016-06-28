@@ -9,7 +9,7 @@ angular.module('allSubmissionsFactory', [])
     function getSubs(){
       return $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/all/submissions"
+        ,url: "http://192.168.0.9:5555/api/all/submissions"
       });
     }
 

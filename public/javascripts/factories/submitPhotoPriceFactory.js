@@ -10,7 +10,7 @@ angular.module('submitPhotoPriceFactory', [])
       console.log(submissionId);
       return $http({
         method: "POST"
-        ,url: "https://moneyshotapi.herokuapp.com/api/accepted/photo"
+        ,url: "http://192.168.0.9:5555/api/accepted/photo"
         ,data: {_id: photoId, status: "offered for sale", submissionId: submissionId}
       })
     }
