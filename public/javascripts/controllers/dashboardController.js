@@ -136,6 +136,12 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         console.log(evt.currentTarget);
         console.log(evt.currentTarget.id);
         self.currentCarPhoto = JSON.parse(evt.currentTarget.id);
+        setTimeout(function(){
+          var off = $(".carouselTunnel").offset();
+          console.log(off);
+          $(".carouselTunnel").offset({ top: off.top, left: 100 });
+
+        }, 2500);
       }
       else if(self.selectionActive === true){
         var isSelected = $(evt.currentTarget).hasClass('selected');
