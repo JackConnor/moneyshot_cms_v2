@@ -264,7 +264,8 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
                setTimeout(function(){
                  zip.generateAsync({type: 'blob'})
                  .then(function(newPhoto){
-                   saveAs(newPhoto, "hello.zip");
+                   var date = new Date();
+                   saveAs(newPhoto, date);
                  })
                  .catch(function(err){
                    console.log(err);
