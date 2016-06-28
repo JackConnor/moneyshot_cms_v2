@@ -1,9 +1,21 @@
 
 <div class="purchaseTitle">
-  Sold Photos - Send Info
+  Sold Photos - Send Info to photographer
 </div>
 
-<input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoId' type="text" name="name" placeholder='photo id'><br>
-<input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoPrice' type="text" name="name" placeholder='photo price'><br>
-<input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoPublication' type="text" name="name" placeholder='purchaser'><br>
-<div class='col-xs-8 col-xs-offset-2' id='purchasePhotoButton' type="button" name="button" ng-click='purchase.sendPhotoPrice()'>Send Sales Info</div>
+<div class="confirmSalesModal" ng-if='purchase.purchaseModalBool'>
+  <img class="confirmImage" src="{{purchase.photoToSell.url}}" />
+  <div class="purchaseInfo">
+    <div class="purchasePrice">
+      Send request to user, to make payment of: ${{purchase.userPrice}}?
+    </div>
+    <div class="purchaseButtonConfirm" ng-click='purchase.sendEmail()'>Send Sale Info</div>
+  </div>
+</div>
+
+<div class="purchaseInputHolder">
+  <input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoId' type="text" name="name" placeholder='photo id'><br>
+  <input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoPrice' type="text" name="name" placeholder='photo price'><br>
+  <input class='purchaseInput col-xs-12 col-sm-8 col-sm-offset-2' id='purchasePhotoPublication' type="text" name="name" placeholder='purchaser'><br>
+  <div class='col-xs-8 col-xs-offset-2' id='purchasePhotoButton' type="button" name="button" ng-click='purchase.sendPhotoPrice()'>Send Sales Info</div>
+</div>
