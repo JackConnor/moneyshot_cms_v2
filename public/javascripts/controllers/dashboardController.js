@@ -294,6 +294,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           }
         }
       }
+      else if(self.selectionActive === false){
+        console.log(self.activeSubmission);
+      }
       // getSavedPhotos(selectedPhotos)
     }
     self.getOldSubmissionPhotos = getOldSubmissionPhotos;
