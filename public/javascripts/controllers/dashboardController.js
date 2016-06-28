@@ -93,6 +93,12 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.allPhotosSubmission = false;
         self.submissionsOpenAll = true;
       }
+      else {
+        self.submissionsOpen = true;
+        self.selectionActive = false;
+        self.singleSubmissionOpen = false;
+        self.submissionsOpenAll = false;
+      }
     }
     self.backToList = backToList;
 
@@ -278,6 +284,22 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
     }
     self.getSavedPhotos = getSavedPhotos;
+
+    function getSavedSelected(){
+      console.log('yooooo');
+      var selectedPhotos = $(".selected");
+      console.log(selectedPhotos);
+      var selectedPhotosArr = [];
+      var selLength = selectedPhotos.length;
+      for (var i = 0; i < selLength; i++) {
+        selectedPhotosArr.push(JSON.parse(selectedPhotos[i].id));
+        console.log(selectedPhotosArr);
+        if(i === selLength-1){
+          getSavedPhotos(selectedPhotosArr);
+        }
+      }
+    }
+    self.getSavedSelected = getSavedSelected;
 
     function getOldSubmissionPhotos(){
       console.log(self.selectionActive);

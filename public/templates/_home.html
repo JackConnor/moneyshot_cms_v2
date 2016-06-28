@@ -79,7 +79,7 @@
 </div> -->
 
 <div class="submissionsContainer">
-  <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll || dash.allSaved'>
+  <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll'>
     <span class='allNewPhotosTab photoTab col-xs-4' ng-click='dash.unprocessedSubmissionsFunc()'>New Submissions</span>
     <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.allSubmissionsFunc()'>All Submissions</span>
     <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()'>All Saved</span>
@@ -153,15 +153,27 @@
   </div>
   <!-- all saved photos modal -->
   <div class="allSavedPhotosContainer" ng-if='dash.allSaved'>
-    <div class="col-xs-4 col-xs-offset-8">
-      Select
+    <div class="singleSubmissionHeader">
+      <div class="singleBack col-xs-4" ng-click='dash.backToList()'>
+        <i class='fa fa-chevron-left'></i>Back
+
+      </div>
+      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
+        Select
+      </div>
+      <div class="singleSelect singleSelected col-xs-4 col-xs-offset-4" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
+        Select
+      </div>
     </div>
     <div class="savedPhotosContainer">
       <div class="savedPhotoCell col-xs-4 col-sm-3 col-md-2" ng-repeat='photo in dash.savedPhotos'>
-        <img src="{{photo.url}}" alt="" />
+        <img src="{{photo.url}}" alt="" ng-click='dash.photoClickFunc($event)' id="{{photo}}"/>
       </div>
     </div>
-    <div class="savedEmailAll" ng-click='dash.getSavedPhotos(dash.savedPhotos)'>
+    <div class="savedEmailAll" ng-click='dash.getSavedPhotos(dash.savedPhotos)' ng-if="!dash.selectionActive">
+      Get These Photos
+    </div>
+    <div class="savedEmailAll" ng-click='dash.getSavedSelected()' ng-if="dash.selectionActive">
       Get These Photos
     </div>
   </div>
