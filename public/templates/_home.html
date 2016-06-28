@@ -98,7 +98,7 @@
         <i class='fa fa-chevron-left'></i>Back
 
       </div>
-      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()' ng-if='!dash.allPhotosSubmission'>
+      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()'>
         Select
       </div>
     </div>
@@ -120,7 +120,10 @@
     <div class="singleMetaDataHolder">
       <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
     </div>
-    <div class='selectButtonHolder' ng-click='dash.selectionActive' ng-if='dash.selectionActive'>
+    <div class="savedEmailAll" ng-click='dash.getSavedPhotos()' ng-if='dash.allPhotosSubmission'>
+      Get These Photos
+    </div>
+    <div class='selectButtonHolder' ng-click='dash.selectionActive' ng-if='dash.selectionActive && !dash.allPhotosSubmission'>
       <span class="rejectButton submitButton col-xs-6" ng-click="dash.saveOrRejectFunc('reject')">Reject All</span>
       <span class="acceptButton submitButton col-xs-6" ng-click='dash.saveOrRejectFunc("save")'>Save All</span>
     </div>

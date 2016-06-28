@@ -11,7 +11,53 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
   dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions', 'Upload'];
 
   function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions, Upload){
-    console.log(Upload);
+    // var zip = new JSZip();
+    // var img = zip.folder('images');
+    // console.log(img);
+    // var newPic = "http://res.cloudinary.com/drjseeoep/image/upload/v1465489790/usxutcypkbfp2i4v6iyv.jpg"
+    // console.log(getBase64FromImageUrl(newPic));
+    // img.file('hellllllo.jpg', newPic, {base64: true});
+    // console.log(img);
+    JSZipUtils.getBinaryContent("http://res.cloudinary.com/drjseeoep/image/upload/v1465489790/usxutcypkbfp2i4v6iyv.jpg", function (err, data) {
+       if(err) {
+          throw err; // or handle the error
+       }
+       var zip = new JSZip();
+       zip.file("picture.png", data, {binary:true});
+       console.log(zip);
+       zip.generateAsync({type: 'blob'})
+       .then(function(newPhoto){
+         console.log(newPhoto);
+         saveAs(newPhoto, "hello.zip");
+       })
+       .catch(function(err){
+         console.log(err);
+       })
+    });
+    // function getBase64FromImageUrl(url) {
+    //   var img = new Image();
+    //
+    //   img.setAttribute('crossOrigin', 'anonymous');
+    //   img.src = url;
+    //
+    //   img.onload = function () {
+    //     var canvas = document.createElement("canvas");
+    //     canvas.width =this.width;
+    //     canvas.height =this.height;
+    //
+    //     var ctx = canvas.getContext("2d");
+    //     ctx.drawImage(this, 0, 0); //////important, THIS is the image
+    //     var dataURL = canvas.toDataURL("image/png");
+    //     dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    //     console.log(dataURL);
+    //     // CameraRoll.saveToCameraRoll(dataURL, function(){
+    //     // }, function(err){
+    //     //   console.log(err);
+    //     // });
+    //   };
+    // }
+
+    // zip.file("Hello.txt", "Hello World\n");
     //////////////////////////////////
     ////////begin all global variables
     var self = this;
@@ -239,7 +285,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           console.log('last iiiiiiiiiiiiii');
           $http({
             method: "POST"
-            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
+            ,url: "https://moneyshotapi.herokuapp.com/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
@@ -247,15 +293,15 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
             emailCache.push(updatedPhoto.data._id);
             console.log('you did it!!!!!');
             console.log(emailCache);
-            $http({
-              method: "POST"
-              ,url: 'http://192.168.0.5:5555/api/emailallphotos'
-              ,data: {emailCache: emailCache}
-            })
-            .then(function(err, data){
-              console.log('callback');
-              console.log(data);
-            })
+            // $http({
+            //   method: "POST"
+            //   ,url: 'http://45.55.24.234/api/emailallphotos'
+            //   ,data: {emailCache: emailCache}
+            // })
+            // .then(function(err, data){
+            //   console.log('callback');
+            //   console.log(data);
+            // })
             /////////now we will give them the options to either download or email photo batch
           });
         }
