@@ -280,6 +280,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.getSavedPhotos = getSavedPhotos;
 
     function getOldSubmissionPhotos(){
+      console.log(self.selectionActive);
       if(self.selectionActive){
         var selectedPhotos = $('.selected');
         var selectedLength = selectedPhotos.length;
@@ -296,8 +297,11 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
       else if(self.selectionActive === false){
         console.log(self.activeSubmission);
+        var confirmer = confirm('Download all photos from this set?');
+        if(confirmer){
+          getSavedPhotos(self.activeSubmission.photos);
+        }
       }
-      // getSavedPhotos(selectedPhotos)
     }
     self.getOldSubmissionPhotos = getOldSubmissionPhotos;
 
