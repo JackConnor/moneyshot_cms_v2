@@ -20,5 +20,11 @@ angular.module('app.routes', ['ngRoute'])
       ,controllerAs: 'password'
     })
 
+    .when('/purchase', {
+      templateUrl: 'templates/_purchase.html'
+      ,controller: 'purchaseCtrl'
+      ,controllerAs: 'purchase'
+    })
+
     .otherwise('/');
   }
