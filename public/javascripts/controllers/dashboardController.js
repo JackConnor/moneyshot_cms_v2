@@ -122,6 +122,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       if(!self.selectionActive){
         self.singleSubmissionOpen = false;
         self.openCarousel = true;
+        console.log(evt.currentTarget);
+        console.log(evt.currentTarget.id);
+        self.currentCarPhoto = JSON.parse(evt.currentTarget.id);
       }
       else if(self.selectionActive === true){
         var isSelected = $(evt.currentTarget).hasClass('selected');

@@ -87,7 +87,9 @@
 
   <!-- photo carousel modal -->
   <div class="photoCarousel" ng-if='dash.openCarousel'>
-    Carousel
+    <div class="carouselImageHolder">
+      <img src="{{dash.currentCarPhoto.url}}" alt="" />
+    </div>
   </div>
 
   <!-- single submission modal -->

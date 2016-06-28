@@ -243,6 +243,33 @@ section {
 /*///////////////
 ///////////////
 ///////////////*/
+.carouselImageHolder {
+  border: 2px solid white;
+  padding: 0px;
+  height: auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 0px){
+  .carouselImageHolder img{
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*height: auto;*/
+  }
+}
+
+@media only screen and (min-width: 500px){
+  .carouselImageHolder img{
+    width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*height: auto;*/
+  }
+}
+
 .confirmImage {
   width: 300px;
   margin-left: auto;
@@ -258,6 +285,14 @@ section {
   position: absolute;
   z-index: 100;
   background-color: white;
+}
+
+.photoCarousel {
+  width: 100%;
+  height: 1300px;
+  background-color: black;
+  position: absolute;
+  z-index: 200;
 }
 
 .photoTab {
