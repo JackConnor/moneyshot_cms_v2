@@ -150,16 +150,23 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           var off = $(".carouselTunnel").offset();
           var offWindow = $(".photoMiniWindow").offset();
           var tunnelLength = $('.carouselCell').length*100
-          $('.carouselTunnel').css({
-            marginLeft: -tunnelLength
-          });
+          // $('.carouselTunnel').css({
+          //   marginLeft: -1000
+          // });
+          $($('.carouselCell')[0]).css({
+            marginLeft: offWindow.left
+          })
 
-          var scrollLeft = offWindow.left-(100*index);
+          var scrollLeft = (100*index);
+          console.log(scrollLeft);
 
-          $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
-          // $(".carouselTunnel").scrollLeft(scrollLeft);
+          // $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
+          $(".carouselOuterTunnel").animate({
+            scrollLeft: scrollLeft
+          }, 200);
+          console.log($(".carouselTunnel").scrollLeft());
 
-        }, 100);
+        }, 50);
       }
       else if(self.selectionActive === true){
         var isSelected = $(evt.currentTarget).hasClass('selected');

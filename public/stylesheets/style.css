@@ -291,7 +291,6 @@ section {
   width: 1000%;
   border: 1px solid gray;
   height: 100px;
-  overflow: scroll;
   z-index: -1;
 }
 
