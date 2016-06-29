@@ -11,7 +11,7 @@ angular.module('rejectPhotoFactory', [])
       console.log(submissionId);
       return $http({
         method: "POST"
-        ,url: "http://192.168.0.9:5555/api/reject/photo"
+        ,url: "http://192.168.0.5:5555/api/reject/photo"
         ,data: {photoId: photo, submissionId: submissionId}
       })
     }

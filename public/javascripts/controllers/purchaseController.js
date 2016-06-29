@@ -19,7 +19,7 @@ angular.module('purchaseController', [])
       // console.log(price + photoId);
       $http({
         method: "GET"
-        ,url: "http://192.168.0.9:5555/api/photo/"+photoId
+        ,url: "http://192.168.0.5:5555/api/photo/"+photoId
       })
       .then(function(data){
         console.log(data);
@@ -35,7 +35,7 @@ angular.module('purchaseController', [])
       var photoPublication = $('#purchasePhotoPublication').val();
       $http({
         method: "POST"
-        ,url: 'http://192.168.0.9:5555/api/soldPhoto'
+        ,url: 'http://192.168.0.5:5555/api/soldPhoto'
         ,data: {photoId: photoId, photoPrice: price, purchaser: photoPublication}
       })
       .then(function(data){

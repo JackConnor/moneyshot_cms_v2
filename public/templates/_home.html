@@ -88,9 +88,9 @@
   <!-- photo carousel modal -->
   <div class="photoCarousel" ng-if='dash.openCarousel'>
     <div class="carouselImageHolder">
-      <img src="{{dash.currentCarPhoto.url}}" alt="" />
+      <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' />
     </div>
-    <div class="carouselOuterTunnel">
+    <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
       <div class="carouselTunnel">
         <div class="carouselCell" ng-repeat='photo in dash.carouselPhotos'>
           <img src="{{photo.url}}" alt="" />

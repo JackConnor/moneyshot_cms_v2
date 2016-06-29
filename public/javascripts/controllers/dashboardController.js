@@ -8,9 +8,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     };
   })
 
-  dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions', 'Upload'];
+  dashboardCtrl.$inject = ['$http','allSavedPhotos', 'submitPrice', 'rejectPhoto', '$sce', 'allSubmissions', 'Upload', '$scope', '$window'];
 
-  function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions, Upload){
+  function dashboardCtrl($http, allSavedPhotos, submitPrice, rejectPhoto, $sce, allSubmissions, Upload, $scope, $window){
     //////////////////////////////////
     ////////begin all global variables
     var self = this;
@@ -143,29 +143,20 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       if(!self.selectionActive){
         self.singleSubmissionOpen = false;
         self.openCarousel = true;
-        console.log(evt.currentTarget);
-        console.log(evt.currentTarget.id);
-        self.currentCarPhoto = JSON.parse(evt.currentTarget.id);
+        $scope.currentCarPhoto = JSON.parse(evt.currentTarget.id);
         setTimeout(function(){
           var off = $(".carouselTunnel").offset();
           var offWindow = $(".photoMiniWindow").offset();
           var tunnelLength = $('.carouselCell').length*100
-          // $('.carouselTunnel').css({
-          //   marginLeft: -1000
-          // });
           $($('.carouselCell')[0]).css({
             marginLeft: offWindow.left
           })
-
           var scrollLeft = (100*index);
-          console.log(scrollLeft);
-
           // $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
           $(".carouselOuterTunnel").animate({
             scrollLeft: scrollLeft
-          }, 200);
-          console.log($(".carouselTunnel").scrollLeft());
-
+          }, 100);
+          scrollFunc();
         }, 50);
       }
       else if(self.selectionActive === true){
@@ -179,6 +170,40 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
     }
     self.photoClickFunc = photoClickFunc;
+
+    function scrollFunc(){
+      $('.carouselOuterTunnel').scroll(function(evt){
+        console.log('yoooooooo');
+        console.log(self.carouselPhotos);
+        var leftScr = $(".carouselOuterTunnel").scrollLeft();
+        console.log(leftScr);
+        var index = Math.floor(leftScr/100);
+        console.log(index);
+        // $('#carouselMainImage').attr('src', self.carouselPhotos[index].url);
+        $scope.currentCarPhoto = self.carouselPhotos[index];
+        $scope.$apply();
+        // if(leftScr <= 50){
+        //   console.log('boom 1');
+        //   $('#carouselMainImage').attr('src', self.carouselPhotos[0].url)
+        //   $scope.currentCarPhoto = self.carouselPhotos[0];
+        //   $scope.$apply();
+        // }
+        // else if(50 < leftScr <= 150){
+        //   console.log('boom 2');
+        //   $('#carouselMainImage').attr('src', self.carouselPhotos[1].url)
+        //   $scope.currentCarPhoto = self.carouselPhotos[1];
+        //   console.log($scope.currentCarPhoto);
+        //   $scope.$apply();
+        // }
+        // else if(250 < leftScr <= 350){
+        //   console.log('boom 3');
+        //   $('#carouselMainImage').attr('src', self.carouselPhotos[2].url)
+        //   $scope.currentCarPhoto = self.carouselPhotos[2];
+        //   console.log($scope.currentCarPhoto);
+        //   $scope.$apply();
+        // }
+      })
+    }
 
     function saveOrRejectFunc(saveOrReject){
       console.log(saveOrReject);
@@ -288,7 +313,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         if(i !== savedLength-1){
           $http({
             method: "POST"
-            ,url: "http://192.168.0.9:5555/api/accepted/savedPhoto"
+            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
@@ -303,7 +328,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         else {
           $http({
             method: "POST"
-            ,url: "http://192.168.0.9:5555/api/accepted/savedPhoto"
+            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
