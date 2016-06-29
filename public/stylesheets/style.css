@@ -292,6 +292,7 @@ section {
   border: 1px solid gray;
   height: 100px;
   overflow: scroll;
+  z-index: -1;
 }
 
 .confirmImage {
@@ -328,6 +329,7 @@ section {
   margin-left: auto;
   margin-right: auto;
   margin-top: -103px;
+  z-index: 500;
 }
 
 .photoTab {

@@ -177,7 +177,7 @@
     </div>
     <div class="savedPhotosContainer">
       <div class="savedPhotoCell col-xs-4 col-sm-3 col-md-2" ng-repeat='photo in dash.savedPhotos'>
-        <img src="{{photo.url}}" alt="" ng-click='dash.photoClickFunc($event)' id="{{photo}}"/>
+        <img src="{{photo.url}}" alt="" ng-click='dash.photoClickFunc($event, $index)' id="{{photo}}"/>
       </div>
     </div>
     <div class="savedEmailAll" ng-click='dash.getSavedPhotos(dash.savedPhotos)' ng-if="!dash.selectionActive">

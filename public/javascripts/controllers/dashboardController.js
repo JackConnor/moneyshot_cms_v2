@@ -118,7 +118,17 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
     self.activateSelection = activateSelection;
 
-    function photoClickFunc(evt){
+    function carScrollFunc(){
+      console.log('yowza');
+    }
+    self.carScrollFunc = carScrollFunc;
+
+    $('document').on('scroll', function(evt){
+      console.log('yooooo');
+      console.log(evt);
+    })
+
+    function photoClickFunc(evt, index){
       if(self.allSaved){
         self.carouselPhotos = self.savedPhotos;
       }
@@ -138,10 +148,18 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.currentCarPhoto = JSON.parse(evt.currentTarget.id);
         setTimeout(function(){
           var off = $(".carouselTunnel").offset();
-          console.log(off);
-          $(".carouselTunnel").offset({ top: off.top, left: 100 });
+          var offWindow = $(".photoMiniWindow").offset();
+          var tunnelLength = $('.carouselCell').length*100
+          $('.carouselTunnel').css({
+            marginLeft: -tunnelLength
+          });
 
-        }, 2500);
+          var scrollLeft = offWindow.left-(100*index);
+
+          $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
+          // $(".carouselTunnel").scrollLeft(scrollLeft);
+
+        }, 100);
       }
       else if(self.selectionActive === true){
         var isSelected = $(evt.currentTarget).hasClass('selected');
