@@ -156,6 +156,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
             marginLeft: offWindow.left
           })
           var scrollLeft = (100*index);
+          console.log(scrollLeft);
           // $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
           $(".carouselOuterTunnel").animate({
             scrollLeft: scrollLeft
