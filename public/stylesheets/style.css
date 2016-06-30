@@ -282,8 +282,8 @@ section {
 }
 
 .carouselOuterTunnel {
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  -webkit-overflow-y-scrolling: touch;
 }
 
 .carouselTunnel {
