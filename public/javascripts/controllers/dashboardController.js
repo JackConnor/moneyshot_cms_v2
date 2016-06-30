@@ -231,9 +231,8 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
     function acceptSinglePhoto(photo, submissionId){
       console.log($($(".carouselTunnel")[0]).css("width"));
-      // acceptPhoto(photo, submissionId);
-      /////erase from list here
-
+      acceptPhoto(photo, submissionId);
+      
       ////////function to remove from carousel
       for (var i = 0; i < $scope.carouselPhotos.length; i++) {
         if($scope.carouselPhotos[i]._id === photo._id){
@@ -241,6 +240,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           $scope.carouselPhotos.splice(i, 1);
           if($scope.carouselPhotos.length === 0){
             exitCarousel();
+            backToList();
             for (var i = 0; i < self.allSubmissions.length; i++) {
               if(self.allSubmissions[i]._id === self.activeSubmission._id){
                 self.allSubmissions.splice(i, 1);
