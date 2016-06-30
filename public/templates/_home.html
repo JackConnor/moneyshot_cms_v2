@@ -129,7 +129,7 @@
     </div>
     <div class="singleAllPhotosContainer" ng-if='dash.allPhotosSubmission'>
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-click='dash.photoClickFunc($event)' id='{{photo}}'/>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-click='dash.photoClickFunc($event, $index)' id='{{photo}}'/>
         <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
       </div>
     </div>
