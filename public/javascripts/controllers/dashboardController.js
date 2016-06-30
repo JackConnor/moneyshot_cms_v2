@@ -196,7 +196,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         if(confirming){
           var photoArrLength = photoArr.length;
           for (var i = 0; i < photoArrLength; i++) {
-            rejectPhotoFunc(photoArr[i].id, self.activeSubmission);
+            rejectPhotoFunc(photoArr[i].id, self.activeSubmission._id);
           }
         }
       }
@@ -225,14 +225,20 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
     self.acceptPhoto = acceptPhoto;
 
-    setInterval(function(){
-      console.log($($(".carouselTunnel")[0]).css("width"));
-    }, 500);
-
-    function acceptSinglePhoto(photo, submissionId){
-      var acceptConfirm = confirm('Save this photo to download later?')
+    function acceptSinglePhoto(photo, submissionId, acceptOrReject){
+      if(acceptOrReject === 'accept'){
+        var acceptConfirm = confirm('Save this photo to download later?')
+      }
+      else if(acceptOrReject === 'reject'){
+        var acceptConfirm = confirm('Reject this Photo?')
+      }
       if(acceptConfirm){
-        acceptPhoto(photo, submissionId);
+        if(acceptOrReject === 'accept'){
+          acceptPhoto(photo, submissionId);
+        }
+        else if(acceptOrReject === 'reject'){
+          rejectPhotoFunc(photo, submissionId);
+        }
 
         ////////function to remove from carousel
         for (var i = 0; i < $scope.carouselPhotos.length; i++) {
@@ -261,18 +267,22 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           if(self.activeSubmission.photos[i]._id === photo._id){
             console.log('got one in the submission');
             console.log(self.activeSubmission.photos);
-            self.activeSubmission.photos[i].status = 'offered for sale'
+            if(acceptOrReject === 'accept'){
+              self.activeSubmission.photos[i].status = 'offered for sale'
+            }
+            else if(acceptOrReject === 'reject'){
+              self.activeSubmission.photos[i].status = 'rejected';
+            }
             console.log(self.activeSubmission.photos);
-            // if(self.activeSubmission.photos.)
           }
-        }  
+        }
       }
     }
     self.acceptSinglePhoto = acceptSinglePhoto;
 
-    function rejectPhotoFunc(photo, submission){
+    function rejectPhotoFunc(photo, submissionId){
       console.log('rejecting');
-      rejectPhoto(photo, submission._id)
+      rejectPhoto(photo, submissionId)
       .then(function(rejectedPhoto){
 
       })

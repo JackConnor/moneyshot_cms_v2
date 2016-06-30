@@ -13,10 +13,10 @@
       <div class="carouselX" ng-click='dash.exitCarousel()'>
         <p class='fa fa-times'></p>
       </div>
-      <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo" ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)' />
-      <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' alt="" id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)'></video>
+      <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo" ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-swipe-left='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "reject")'/>
+      <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-swipe-left='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "reject")'></video>
       <div class="saveSingle">
-        <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)'></i>
+        <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")'></i>
       </div>
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
