@@ -88,6 +88,9 @@
   <!-- photo carousel modal -->
   <div class="photoCarousel" ng-if='dash.openCarousel'>
     <div class="carouselImageHolder">
+      <div class="carouselX">
+        <p class='fa fa-times'></p>
+      </div>
       <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' />
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
