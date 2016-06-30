@@ -305,6 +305,7 @@ section {
   margin-top: 10px;
   width: 1000%;
   height: 100px;
+  outline: 1px solid white;
 }
 
 .carouselX {

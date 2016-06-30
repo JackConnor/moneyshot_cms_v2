@@ -1,82 +1,4 @@
-<!-- <div class="yesNoPopup" ng-if='dash.yesNoPopupVariable'>
-  <div class="xOutPopup" ng-click='dash.closePopup()'>
-    X
-  </div>
-  <div class="yesNoContainer col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0 ">
-    <div class="popupImageFrame col-md-6 col-sm-12">
-      <img src="{{dash.currentPhoto.photo.url}}" ng-if="!dash.currentPhoto.isVideo"/ class='' id="{{dash.currentPhoto.submission}}">
-      <video ng-src="{{dash.currentPhoto.url | trustUrl}}" ng-if="dash.currentPhoto.isVideo" id="{{dash.currentPhoto.submission}}" controls></video>
-    </div>
-    <div class="popupInfoContainer col-md-6 col-sm-12"> -->
-      <!-- <p>
-        who: <span ng-repeat='person in dash.currentPhoto.photosubjects'>{{person}}, </span>
-      </p> -->
-      <!-- <p>
-        where: {{dash.currentPhoto.meta.location}}
-      </p>
-      <p>
-        when: {{dash.currentPhoto.meta.dateTaken}}
-      </p>
-      <p>
-        time: {{dash.currentPhoto.meta.timeTaken}}
-      </p>
-      <input type="text" placeholder='enter price' class='popupPrice'>
-      <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-12 col-xs-12 col-xs-offset-0">
-        <div class="yesTab selectionTab col-sm-6 col-xs-6" ng-click='dash.submitSuccessPhoto(dash.currentPhoto)' id='{{dash.currentPhoto._id}}'>
-          Sell
-        </div>
-        <div class="noTab selectionTab col-ms-6 col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto); dash.yesNoPopupVariable = false;'>
-          Reject
-        </div>
-        <div class="downTab selectionTab col-sm-12 col-xs-12" ng-click='dash.downloadPhoto(dash.currentPhoto); dash.yesNoPopupVariable = false;'>
-          Download
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12">
 
-    </div>
-  </div>
-</div>
-<div class="tabsContainer row">
-  <div class="photoCarouselTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
-    Stream
-  </div>
-  <div class="photoAllTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
-    All
-  </div>
-  <div class="photoSoldTab photoTab col-xs-4" ng-click='dash.tabController($event)'>
-    Sold
-  </div>
-</div>
-<div class="photoStreamContainer" ng-if="dash.currentTab == 'photoStream'">
-  <div class="singlePhotoFrame col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
-    <img ng-src="{{dash.currentPhoto.url}}"/>
-  </div>
-  <div class="singleYesNoContainer col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
-    <div class="yesTab selectionTab col-xs-6" ng-click='dash.yesNoPopup()'>
-      Sell
-    </div>
-    <div class="noTab selectionTab col-xs-6" ng-click='dash.rejectPhoto(dash.currentPhoto._id); dash.nextCarousel()'>
-      Reject
-    </div>
-  </div>
-</div>
-<div class="photosContainer" ng-repeat='photo in dash.allPhotos' ng-if="dash.currentTab == 'allPhotos'">
-  <div class="photoFrame col-sm-4 col-xs-6" >
-    <img class='photoImage' ng-src="{{photo.photo.url}}" id='{{photo.submission}}' ng-click='dash.submitPhoto(photo)' ng-if="photo.photo.isVideo == false" />
-    <video ng-src="{{photo.url | trustUrl}}" ng-click='dash.submitPhoto(photo)' ng-if="photo.isVideo" poster="{photo.thumbnail}" controls></video> -->
-    <!-- <h2 class="photoName">{{photo.photosubjects[0]}}</h1> -->
-  <!-- </div>
-</div>
-<div class="soldPhotosContainer" ng-repeat='soldphoto in dash.soldPhotos' ng-if="dash.currentTab == 'soldPhotos'">
-  <div class="photoFrame col-sm-4 col-xs-6">
-    <div class="soldPriceOverlay">
-      ${{soldphoto.price}}
-    </div>
-    <img class='photoImage' src="{{soldphoto.url}}" alt="" />
-  </div>
-</div> -->
 
 <div class="submissionsContainer">
   <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll'>
@@ -98,8 +20,13 @@
       </div>
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
-      <div class="carouselTunnel">
-        <div class="carouselCell" ng-repeat='photo in dash.carouselPhotos' >
+      <div class="carouselTunnel" ng-if='!dash.allPhotosSubmission'>
+        <div class="carouselCell" ng-repeat='photo in carouselPhotos' ng-if='photo.status==="submitted for sale"'>
+          <img src="{{photo.thumbnail}}" alt="" />
+        </div>
+      </div>
+      <div class="carouselTunnel" ng-if='dash.allPhotosSubmission'>
+        <div class="carouselCell" ng-repeat='photo in carouselPhotos' >
           <img src="{{photo.thumbnail}}" alt="" />
         </div>
       </div>
