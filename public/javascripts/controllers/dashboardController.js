@@ -222,8 +222,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
     function acceptPhoto(photo, submissionId){
       console.log(photo);
+      console.log(submissionId);
       console.log('saving');
-      submitPrice(photo.id, submissionId)
+      submitPrice(photo._id, submissionId)
       .then(function(acceptedPhoto){
         console.log(acceptedPhoto);
       },function(err){
@@ -231,6 +232,18 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       });
     }
     self.acceptPhoto = acceptPhoto;
+
+    function acceptSinglePhoto(photo, submissionId){
+      acceptPhoto(photo, submissionId);
+      /////erase from list here
+      for (var i = 0; i < self.carouselPhotos.length; i++) {
+        if(self.carouselPhotos[i]._id = photo._id){
+          self.carouselPhotos.slice(i, 1);
+          $scope.$apply();
+        }
+      }
+    }
+    self.acceptSinglePhoto = acceptSinglePhoto;
 
     function rejectPhotoFunc(photo, submission){
       console.log('rejecting');

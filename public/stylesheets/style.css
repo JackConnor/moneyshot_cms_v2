@@ -298,6 +298,7 @@ section {
 .carouselOuterTunnel {
   overflow-x: scroll;
   -webkit-overflow-y-scrolling: touch;
+  margin-top: 75px;
 }
 
 .carouselTunnel {
@@ -435,6 +436,39 @@ section {
   width: 100%;
   height: 375px;
   overflow-y: scroll;
+}
+
+@media only screen and (min-width: 0px){
+  .saveSingle {
+    /*position: absolute;*/
+    /*float: right;*/
+    color: white;
+    font-size: 35px;
+    width: 100%;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    margin-top: -75px;
+    text-align: right;
+  }
+}
+
+@media only screen and (min-width: 500px){
+  .saveSingle {
+    /*position: absolute;*/
+    /*float: right;*/
+    color: white;
+    font-size: 35px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -75px;
+  }
+}
+
+.saveSingleIcon {
+  position: absolute;
+  margin-left: -65px;
+  margin-top:
 }
 
 .selected {

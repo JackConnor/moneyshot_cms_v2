@@ -93,6 +93,9 @@
       </div>
       <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo"/>
       <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' alt="" id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls></video>
+      <div class="saveSingle">
+        <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)'></i>
+      </div>
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
       <div class="carouselTunnel">
