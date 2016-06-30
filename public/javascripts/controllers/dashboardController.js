@@ -280,6 +280,32 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
     self.acceptSinglePhoto = acceptSinglePhoto;
 
+    //////function to create a base64 photo form a remote url
+    function getBase64FromImageUrl(photo) {
+      var confirmSave = confirm('Download this one photo?');
+      if(confirmSave){
+        var zip = new JSZip();
+        JSZipUtils.getBinaryContent(photo.url, function (err, data) {
+           if(err) {
+              throw err; // or handle the error
+           }
+           zip.file(photo._id+".jpg", data, {binary:true});
+           setTimeout(function(){
+             zip.generateAsync({type: 'blob'})
+             .then(function(newPhoto){
+               var date = new Date();
+               saveAs(newPhoto, date);
+             })
+             .catch(function(err){
+               console.log(err);
+             })
+           }, 3000)
+
+        });
+      }
+    }
+    self.getBase64FromImageUrl = getBase64FromImageUrl;
+
     function rejectPhotoFunc(photo, submissionId){
       console.log('rejecting');
       rejectPhoto(photo, submissionId)
