@@ -39,23 +39,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       console.log(subLength);
       self.allPhotos = [];
       self.soldPhotos = [];
-      // for (var i = 0; i < subLength; i++) {
-      //   console.log(self.allSubmissions[i].photos);
-      //   var photoLength = self.allSubmissions[i].photos.length;
-      //   console.log(photoLength);
-      //   for (var k = 0; k < photoLength; k++) {
-      //     self.allSubmissions[i].photos[k].meta = self.allSubmissions[i].metadata;
-      //     if(self.allSubmissions[i].photos[k].status == 'sold || offered for sale'){
-      //       self.soldPhotos.push(self.allSubmissions[i].photos[k]);
-      //     }
-      //     else if(self.allSubmissions[i].photos[k].status == 'submitted for sale'){////submitted for sale means it comes from the user
-      //       self.allPhotos.push({photo: self.allSubmissions[i].photos[k], submission: self.allSubmissions[i]._id});
-      //     }
-      //     console.log(self.allPhotos);
-      //     console.log(self.soldPhotos);
-      //   }
-      // }
-      // console.log(allPhotos);
     });
 
     ////////funciotn to click through to single submission
@@ -133,6 +116,8 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       console.log();
       console.log(self.submissionsOpen);
       console.log(self.submissionsOpenAll);
+      console.log(self.singleSubmissionOpen);
+      console.log(self.allPhotosSubmission);
       if(self.allSaved){
         $scope.carouselPhotos = self.savedPhotos;
         console.log($scope.carouselPhotos);
@@ -140,9 +125,27 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       else if(self.singleSubmissionOpen){
         $scope.carouselPhotos = self.activeSubmission.photos;
         console.log($scope.carouselPhotos);
+        if(self.allPhotosSubmission){
+          console.log($scope.carouselPhotos);
+        }
+        else {
+          console.log('regular------------------------------------');
+          var carLength = $scope.carouselPhotos.length;
+          console.log(carLength);
+          var tempArr = [];
+          for (var i = 0; i < carLength; i++) {
+            console.log($scope.carouselPhotos[i].status);
+            if($scope.carouselPhotos[i].status === 'submitted for sale'){
+              console.log('you got one');
+              tempArr.push($scope.carouselPhotos[i])
+            }
+            if(i === carLength-1){
+              $scope.carouselPhotos = tempArr;
+              console.log($scope.carouselPhotos);
+            }
+          }
+        }
       }
-      console.log($scope.carouselPhotos);
-
       if(!self.selectionActive){
         // self.singleSubmissionOpen = false;
         self.openCarousel = true;
@@ -151,7 +154,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         setTimeout(function(){
           var off = $(".carouselTunnel").offset();
           var offWindow = $(".photoMiniWindow").offset();
-          var tunnelLength = $('.carouselCell').length*100
+          var tunnelLength = (($scope.carouselPhotos.length)*100)+5
           console.log(tunnelLength);
           $($('.carouselTunnel')[0]).css({
             marginLeft: offWindow.left
@@ -163,7 +166,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
             scrollLeft: scrollLeft
           }, 100);
           $(".carouselTunnel").css({
-            width: tunnelLength+offWindow.left
+            width: tunnelLength+offWindow.left+2
             ,paddingRight: offWindow.left
           });
           scrollFunc();
@@ -183,15 +186,10 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
     function scrollFunc(){
       $('.carouselOuterTunnel').scroll(function(evt){
-        console.log('yoooooooo');
-        console.log($scope.carouselPhotos);
         var leftScr = $(".carouselOuterTunnel").scrollLeft();
-        console.log(leftScr);
         var index = Math.floor(leftScr/100);
-        console.log(index);
         $scope.currentCarPhoto = $scope.carouselPhotos[index];
         $scope.$apply();
-        // $('#carouselMainImage').attr('src', $scope.carouselPhotos[index].url);
       })
     }
 
@@ -223,9 +221,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.saveOrRejectFunc = saveOrRejectFunc;
 
     function acceptPhoto(photo, submissionId){
-      console.log(photo);
-      console.log(submissionId);
-      console.log('saving');
       submitPrice(photo._id, submissionId)
       .then(function(acceptedPhoto){
         console.log(acceptedPhoto);
@@ -235,27 +230,41 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
     self.acceptPhoto = acceptPhoto;
 
+    setInterval(function(){
+      console.log($($(".carouselTunnel")[0]).css("width"));
+    }, 500);
+
     function acceptSinglePhoto(photo, submissionId){
+                console.log($($(".carouselTunnel")[0]).css("width"));
       // acceptPhoto(photo, submissionId);
       /////erase from list here
+      // width: tunnelLength+offWindow.left+2
+      // ,paddingRight: offWindow.left
       for (var i = 0; i < $scope.carouselPhotos.length; i++) {
-        if($scope.carouselPhotos[i]._id = photo._id){
-          console.log('found one!');
-          var newMargin = $($('.carouselTunnel')[0]).css("marginLeft");
-          console.log(newMargin);
-          console.log($scope.carouselPhotos);
+        console.log('in iterator');
+        if($scope.carouselPhotos[i]._id === photo._id){
+          console.log('got one');
           $scope.carouselPhotos.splice(i, 1);
-
-          // setTimeout(function(){
-            var newLength = $('.carouselCell').length;
-            console.log(newLength);
-            $($('.carouselTunnel')[0]).css({
-              marginLeft: newMargin
-              ,width: newLength*100
-            })
-          // }, 100);
-          console.log($scope.carouselPhotos);
-          // $scope.$apply();
+          var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
+          console.log(tunWidth);
+          $('.carouselTunnel').css({
+            width: tunWidth-100+'px'
+          });
+          // console.log('found one!');
+          // var newMargin = $($('.carouselTunnel')[0]).css("marginLeft");
+          // console.log(newMargin);
+          // console.log($scope.carouselPhotos);
+          // console.log($($(".carouselTunnel")[0]).css("width"));
+          // var tunnelLength = $scope.carouselPhotos.length*100;
+          // var tunnelPaddingRight = $($(".carouselTunnel")[0]).css("paddingRight");
+          // var tunnelPaddingNumber = tunnelPaddingRight.split('px')[0];
+          // console.log(tunnelLength);
+          // console.log(tunnelPaddingNumber);
+          // $('.carouselTunnel').css({
+          //   width: tunnelLength + tunnelPaddingNumber
+          //   ,paddingRight: tunnelPaddingRight
+          // });
+          // scrollFunc();
         }
       }
     }
