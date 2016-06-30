@@ -130,20 +130,24 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
     ////function to openCarousel
     function photoClickFunc(evt, index){
+      console.log();
+      console.log(self.submissionsOpen);
+      console.log(self.submissionsOpenAll);
       if(self.allSaved){
         self.carouselPhotos = self.savedPhotos;
+        console.log(self.carouselPhotos);
       }
-      else if(self.submissionsOpen){
+      else if(self.singleSubmissionOpen){
         self.carouselPhotos = self.activeSubmission.photos;
+        console.log(self.carouselPhotos);
       }
-      else if(self.submissionsOpenAll){
-        self.carouselPhotos = self.activeSubmission.photos;
-      }
+      console.log(self.carouselPhotos);
 
       if(!self.selectionActive){
         // self.singleSubmissionOpen = false;
         self.openCarousel = true;
         $scope.currentCarPhoto = JSON.parse(evt.currentTarget.id);
+        console.log($scope.currentCarPhoto);
         setTimeout(function(){
           var off = $(".carouselTunnel").offset();
           var offWindow = $(".photoMiniWindow").offset();
@@ -184,7 +188,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         console.log(index);
         $scope.currentCarPhoto = self.carouselPhotos[index];
         $scope.$apply();
-        $('#carouselMainImage').attr('src', self.carouselPhotos[index].url);
+        // $('#carouselMainImage').attr('src', self.carouselPhotos[index].url);
       })
     }
 

@@ -269,11 +269,25 @@ section {
     margin-right: auto;
     border: 2px solid white;
   }
+  .carouselImageHolder video{
+    width: 88%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid white;
+  }
 }
 
 @media only screen and (min-width: 500px){
   .carouselImageHolder img{
     width: 400px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid white;
+  }
+  .carouselImageHolder video{
+    width: 375px;
     display: block;
     margin-left: auto;
     margin-right: auto;
