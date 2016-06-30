@@ -113,11 +113,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
 
     ////function to openCarousel
     function photoClickFunc(evt, index){
-      console.log();
-      console.log(self.submissionsOpen);
-      console.log(self.submissionsOpenAll);
-      console.log(self.singleSubmissionOpen);
-      console.log(self.allPhotosSubmission);
       if(self.allSaved){
         $scope.carouselPhotos = self.savedPhotos;
         console.log($scope.carouselPhotos);
@@ -235,36 +230,39 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }, 500);
 
     function acceptSinglePhoto(photo, submissionId){
-                console.log($($(".carouselTunnel")[0]).css("width"));
+      console.log($($(".carouselTunnel")[0]).css("width"));
       // acceptPhoto(photo, submissionId);
       /////erase from list here
-      // width: tunnelLength+offWindow.left+2
-      // ,paddingRight: offWindow.left
+
+      ////////function to remove from carousel
       for (var i = 0; i < $scope.carouselPhotos.length; i++) {
-        console.log('in iterator');
         if($scope.carouselPhotos[i]._id === photo._id){
           console.log('got one');
           $scope.carouselPhotos.splice(i, 1);
-          var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
-          console.log(tunWidth);
-          $('.carouselTunnel').css({
-            width: tunWidth-100+'px'
-          });
-          // console.log('found one!');
-          // var newMargin = $($('.carouselTunnel')[0]).css("marginLeft");
-          // console.log(newMargin);
-          // console.log($scope.carouselPhotos);
-          // console.log($($(".carouselTunnel")[0]).css("width"));
-          // var tunnelLength = $scope.carouselPhotos.length*100;
-          // var tunnelPaddingRight = $($(".carouselTunnel")[0]).css("paddingRight");
-          // var tunnelPaddingNumber = tunnelPaddingRight.split('px')[0];
-          // console.log(tunnelLength);
-          // console.log(tunnelPaddingNumber);
-          // $('.carouselTunnel').css({
-          //   width: tunnelLength + tunnelPaddingNumber
-          //   ,paddingRight: tunnelPaddingRight
-          // });
-          // scrollFunc();
+          if($scope.carouselPhotos.length === 0){
+            exitCarousel();
+            for (var i = 0; i < self.allSubmissions.length; i++) {
+              if(self.allSubmissions[i]._id === self.activeSubmission._id){
+                self.allSubmissions.splice(i, 1);
+              }
+            }
+          }
+          else {
+            var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
+            $('.carouselTunnel').css({
+              width: tunWidth-100+'px'
+            });
+            scrollFunc();
+          }
+        }
+      }
+      for (var i = 0; i < self.activeSubmission.photos.length; i++) {
+        if(self.activeSubmission.photos[i]._id === photo._id){
+          console.log('got one in the submission');
+          console.log(self.activeSubmission.photos);
+          self.activeSubmission.photos[i].status = 'offered for sale'
+          console.log(self.activeSubmission.photos);
+          // if(self.activeSubmission.photos.)
         }
       }
     }

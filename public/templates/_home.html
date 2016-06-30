@@ -21,7 +21,7 @@
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
       <div class="carouselTunnel" ng-if='!dash.allPhotosSubmission'>
-        <div class="carouselCell" ng-repeat='photo in carouselPhotos' ng-if='photo.status==="submitted for sale"'>
+        <div class="carouselCell" ng-repeat='photo in carouselPhotos' ng-if='photo.status==="submitted for sale" || dash.allSaved'>
           <img src="{{photo.thumbnail}}" alt="" />
         </div>
       </div>
