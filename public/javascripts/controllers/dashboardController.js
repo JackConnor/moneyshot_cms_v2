@@ -128,6 +128,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       console.log(evt);
     })
 
+    ////function to openCarousel
     function photoClickFunc(evt, index){
       if(self.allSaved){
         self.carouselPhotos = self.savedPhotos;
@@ -138,7 +139,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       else if(self.submissionsOpenAll){
         self.carouselPhotos = self.activeSubmission.photos;
       }
-
 
       if(!self.selectionActive){
         self.singleSubmissionOpen = false;
@@ -156,6 +156,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           $(".carouselOuterTunnel").animate({
             scrollLeft: scrollLeft
           }, 100);
+          $(".carouselTunnel").css({
+            width: tunnelLength+offWindow.left*2+20
+          });
           scrollFunc();
         }, 50);
       }
@@ -179,29 +182,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         console.log(leftScr);
         var index = Math.floor(leftScr/100);
         console.log(index);
-        // $('#carouselMainImage').attr('src', self.carouselPhotos[index].url);
         $scope.currentCarPhoto = self.carouselPhotos[index];
         $scope.$apply();
-        // if(leftScr <= 50){
-        //   console.log('boom 1');
-        //   $('#carouselMainImage').attr('src', self.carouselPhotos[0].url)
-        //   $scope.currentCarPhoto = self.carouselPhotos[0];
-        //   $scope.$apply();
-        // }
-        // else if(50 < leftScr <= 150){
-        //   console.log('boom 2');
-        //   $('#carouselMainImage').attr('src', self.carouselPhotos[1].url)
-        //   $scope.currentCarPhoto = self.carouselPhotos[1];
-        //   console.log($scope.currentCarPhoto);
-        //   $scope.$apply();
-        // }
-        // else if(250 < leftScr <= 350){
-        //   console.log('boom 3');
-        //   $('#carouselMainImage').attr('src', self.carouselPhotos[2].url)
-        //   $scope.currentCarPhoto = self.carouselPhotos[2];
-        //   console.log($scope.currentCarPhoto);
-        //   $scope.$apply();
-        // }
+        $('#carouselMainImage').attr('src', self.carouselPhotos[index].url);
       })
     }
 

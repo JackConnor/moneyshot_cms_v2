@@ -119,7 +119,7 @@
     <!-- all photos modal -->
     <div class="singleAllPhotosContainer" ng-if='!dash.allPhotosSubmission'>
       <div class="singlePhotoCell" ng-repeat='photo in dash.activeSubmission.photos'>
-        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'/>
+        <img src="{{photo.thumbnail}}" class='col-xs-4 col-md-3' ng-if='photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}' id="{{photo}}"/>
         <!-- <video src="{{photo.thumbnail | trustUrl}}"  class='col-xs-4 col-md-3' ng-if='photo.isVideo && photo.status==="submitted for sale"' ng-click='dash.photoClickFunc($event)' id='{{photo._id}}'></video> -->
       </div>
     </div>
@@ -145,7 +145,7 @@
   <div class="submissionCell" ng-repeat='submission in dash.allSubmissions' ng-if='dash.submissionsOpen && submission.status==="pending"' ng-click='dash.openSingleSubmission(submission)'>
     <!-- {{submission}} -->
     <div class="submissionImageHolder">
-      <img src="{{submission.photos[0].thumbnail}}" alt="" />
+      <img src="{{submission.photos[0].thumbnail}}" alt="" id="{{submission.photos[0]}}"/>
     </div>
     <div class="submissionDataHolder">
       {{submission.metadata.date}}<br>{{submission.metadata.who}}<br>{{submission.metadata.what}}
@@ -155,7 +155,7 @@
   <div class="submissionCellAll" ng-repeat='submission in dash.allSubmissions' ng-if='dash.submissionsOpenAll' ng-click='dash.openSingleSubmission(submission)'>
     <!-- {{submission}} -->
     <div class="submissionImageHolder">
-      <img src="{{submission.photos[0].thumbnail}}" alt="" />
+      <img src="{{submission.photos[0].thumbnail}}" alt="" id="{{submission.photo[0]}}"/>
     </div>
     <div class="submissionDataHolder">
       {{submission.metadata.date}}<br>{{submission.metadata.who}}<br>{{submission.metadata.what}}
