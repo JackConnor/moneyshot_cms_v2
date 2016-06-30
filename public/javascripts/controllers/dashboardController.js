@@ -141,7 +141,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       }
 
       if(!self.selectionActive){
-        self.singleSubmissionOpen = false;
+        // self.singleSubmissionOpen = false;
         self.openCarousel = true;
         $scope.currentCarPhoto = JSON.parse(evt.currentTarget.id);
         setTimeout(function(){
@@ -251,6 +251,11 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     //   }
     // }
     // self.toggleTabs = toggleTabs;
+
+    function exitCarousel(){
+      self.openCarousel = false;
+    }
+    self.exitCarousel = exitCarousel;
 
     function allSubmissionsFunc(){
       self.submissionsOpen = false;
