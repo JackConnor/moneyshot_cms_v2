@@ -13,8 +13,8 @@
       <div class="carouselX" ng-click='dash.exitCarousel()'>
         <p class='fa fa-times'></p>
       </div>
-      <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo"/>
-      <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' alt="" id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls></video>
+      <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo" ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)' />
+      <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' alt="" id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)'></video>
       <div class="saveSingle">
         <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id)'></i>
       </div>
@@ -22,7 +22,7 @@
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
       <div class="carouselTunnel" ng-if='!dash.allPhotosSubmission'>
         <div class="carouselCell" ng-repeat='photo in carouselPhotos' ng-if='photo.status==="submitted for sale" || dash.allSaved'>
-          <img src="{{photo.thumbnail}}" alt="" />
+          <img src="{{photo.thumbnail}}"alt="" />
         </div>
       </div>
       <div class="carouselTunnel" ng-if='dash.allPhotosSubmission'>
@@ -113,7 +113,7 @@
     </div>
     <div class="savedPhotosContainer">
       <div class="savedPhotoCell col-xs-4 col-sm-3 col-md-2" ng-repeat='photo in dash.savedPhotos'>
-        <img src="{{photo.url}}" alt="" ng-click='dash.photoClickFunc($event, $index)' id="{{photo}}"/>
+        <img src="{{photo.thumbnail}}" alt="" ng-click='dash.photoClickFunc($event, $index)' id="{{photo}}"/>
       </div>
     </div>
     <div class="savedEmailAll" ng-click='dash.getSavedPhotos(dash.savedPhotos)' ng-if="!dash.selectionActive">

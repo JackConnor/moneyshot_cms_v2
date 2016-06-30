@@ -230,40 +230,42 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }, 500);
 
     function acceptSinglePhoto(photo, submissionId){
-      console.log($($(".carouselTunnel")[0]).css("width"));
-      acceptPhoto(photo, submissionId);
-      
-      ////////function to remove from carousel
-      for (var i = 0; i < $scope.carouselPhotos.length; i++) {
-        if($scope.carouselPhotos[i]._id === photo._id){
-          console.log('got one');
-          $scope.carouselPhotos.splice(i, 1);
-          if($scope.carouselPhotos.length === 0){
-            exitCarousel();
-            backToList();
-            for (var i = 0; i < self.allSubmissions.length; i++) {
-              if(self.allSubmissions[i]._id === self.activeSubmission._id){
-                self.allSubmissions.splice(i, 1);
+      var acceptConfirm = confirm('Save this photo to download later?')
+      if(acceptConfirm){
+        acceptPhoto(photo, submissionId);
+
+        ////////function to remove from carousel
+        for (var i = 0; i < $scope.carouselPhotos.length; i++) {
+          if($scope.carouselPhotos[i]._id === photo._id){
+            console.log('got one');
+            $scope.carouselPhotos.splice(i, 1);
+            if($scope.carouselPhotos.length === 0){
+              exitCarousel();
+              backToList();
+              for (var i = 0; i < self.allSubmissions.length; i++) {
+                if(self.allSubmissions[i]._id === self.activeSubmission._id){
+                  self.allSubmissions.splice(i, 1);
+                }
               }
             }
-          }
-          else {
-            var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
-            $('.carouselTunnel').css({
-              width: tunWidth-100+'px'
-            });
-            scrollFunc();
+            else {
+              var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
+              $('.carouselTunnel').css({
+                width: tunWidth-100+'px'
+              });
+              scrollFunc();
+            }
           }
         }
-      }
-      for (var i = 0; i < self.activeSubmission.photos.length; i++) {
-        if(self.activeSubmission.photos[i]._id === photo._id){
-          console.log('got one in the submission');
-          console.log(self.activeSubmission.photos);
-          self.activeSubmission.photos[i].status = 'offered for sale'
-          console.log(self.activeSubmission.photos);
-          // if(self.activeSubmission.photos.)
-        }
+        for (var i = 0; i < self.activeSubmission.photos.length; i++) {
+          if(self.activeSubmission.photos[i]._id === photo._id){
+            console.log('got one in the submission');
+            console.log(self.activeSubmission.photos);
+            self.activeSubmission.photos[i].status = 'offered for sale'
+            console.log(self.activeSubmission.photos);
+            // if(self.activeSubmission.photos.)
+          }
+        }  
       }
     }
     self.acceptSinglePhoto = acceptSinglePhoto;

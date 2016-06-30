@@ -1,1 +1,1 @@
-angular.module('mophoapp', ['ngRoute', 'app.routes', 'dashboardController', 'passwordController', 'purchaseController', 'allPhotosFactory', 'submitPhotoPriceFactory', 'rejectPhotoFactory', 'allSubmissionsFactory']);
+angular.module('mophoapp', ['ngRoute', 'app.routes', 'dashboardController', 'passwordController', 'purchaseController', 'allPhotosFactory', 'submitPhotoPriceFactory', 'rejectPhotoFactory', 'allSubmissionsFactory', 'ngTouch']);
