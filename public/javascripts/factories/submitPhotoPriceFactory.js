@@ -6,8 +6,8 @@ angular.module('submitPhotoPriceFactory', [])
 
   function submitPrice($http){
     function updatePhoto(photoId, submissionId){
-      console.log(photoId);
       console.log(submissionId);
+      console.log(photoId);
       return $http({
         method: "POST"
         ,url: "http://192.168.0.5:5555/api/accepted/photo"

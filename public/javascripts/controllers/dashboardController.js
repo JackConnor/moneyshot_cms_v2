@@ -61,25 +61,20 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     }
 
     function backToList(){
-      console.log(self.allPhotosSubmission);
       if(self.allPhotosSubmission === false){
-        console.log('normal');
         self.submissionsOpen      = true;
         self.selectionActive      = false;
         self.singleSubmissionOpen = false;
         self.allSaved             = false;
         self.submissionsOpenAll   = false;
-        $scope.$apply();
       }
       else if(self.allPhotosSubmission){
-        console.log('all submissions');
         self.submissionsOpen      = false;
         self.selectionActive      = false;
         self.allSaved             = false;
         self.singleSubmissionOpen = false;
         self.allPhotosSubmission  = false;
         self.submissionsOpenAll   = true;
-        $scope.$apply();
       }
       else {
         self.submissionsOpen      = true;
@@ -87,9 +82,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.selectionActive      = false;
         self.singleSubmissionOpen = false;
         self.submissionsOpenAll   = false;
-        $scope.$apply();
       }
-      console.log(self.allSaved);
     }
     self.backToList = backToList;
 
@@ -101,7 +94,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.selectionActive = false;
         var allSelects = $('.selected')
         var selectsLength = allSelects;
-        console.log(allSelects);
         for (var i = 0; i < selectsLength.length; i++) {
           $(selectsLength[i]).removeClass('selected');
         }
@@ -211,7 +203,20 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
           console.log(photoArr[0]);
           console.log(photoArr[0].id);
           for (var i = 0; i < photoArrLength; i++) {
-            acceptPhoto(photoArr[i], self.activeSubmission._id);
+            console.log(i);
+            console.log(typeof photoArr[i].id);
+            var stringObject = JSON.parse(photoArr[i].id);
+            console.log(stringObject);
+            console.log(typeof stringObject);
+            var photoId = stringObject._id;
+            console.log(photoId);
+            acceptPhoto(stringObject, self.activeSubmission._id);
+            // if(typeof photoArr[i]=== 'object'){
+            //   acceptPhoto(photoArr[i].id, self.activeSubmission._id);
+            // }
+            // else if(typeof photoArr[i]=== 'string'){
+            //   acceptPhoto(JSON.parse(photoArr[i]).id, self.activeSubmission._id);
+            // }
           }
         }
       }
