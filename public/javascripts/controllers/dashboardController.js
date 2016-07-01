@@ -17,6 +17,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.currentTab = "allPhotos";///////////this can be set to "allPhotos", "soldPhotos", or "photoStream"
     self.yesNoPopupVariable = false;
     self.submissionsOpen = true;
+    self.allPhotosSubmission = false;
     self.singleSubmissionOpen = false;
     self.activeSubmission = {}
     self.openSingleSubmission = openSingleSubmission;
@@ -63,28 +64,32 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       console.log(self.allPhotosSubmission);
       if(self.allPhotosSubmission === false){
         console.log('normal');
-        self.submissionsOpen = true;
-        self.selectionActive = false;
+        self.submissionsOpen      = true;
+        self.selectionActive      = false;
         self.singleSubmissionOpen = false;
-        self.allSaved = false;
-        self.submissionsOpenAll = false;
+        self.allSaved             = false;
+        self.submissionsOpenAll   = false;
+        $scope.$apply();
       }
       else if(self.allPhotosSubmission){
         console.log('all submissions');
-        self.submissionsOpen = false;
-        self.selectionActive = false;
-        self.allSaved = false;
+        self.submissionsOpen      = false;
+        self.selectionActive      = false;
+        self.allSaved             = false;
         self.singleSubmissionOpen = false;
-        self.allPhotosSubmission = false;
-        self.submissionsOpenAll = true;
+        self.allPhotosSubmission  = false;
+        self.submissionsOpenAll   = true;
+        $scope.$apply();
       }
       else {
-        self.submissionsOpen = true;
-        self.allSaved = false;
-        self.selectionActive = false;
+        self.submissionsOpen      = true;
+        self.allSaved             = false;
+        self.selectionActive      = false;
         self.singleSubmissionOpen = false;
-        self.submissionsOpenAll = false;
+        self.submissionsOpenAll   = false;
+        $scope.$apply();
       }
+      console.log(self.allSaved);
     }
     self.backToList = backToList;
 
@@ -145,21 +150,16 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         }
       }
       if(!self.selectionActive){
-        // self.singleSubmissionOpen = false;
         self.openCarousel = true;
         $scope.currentCarPhoto = JSON.parse(evt.currentTarget.id);
-        console.log($scope.currentCarPhoto);
         setTimeout(function(){
           var off = $(".carouselTunnel").offset();
           var offWindow = $(".photoMiniWindow").offset();
           var tunnelLength = (($scope.carouselPhotos.length)*100)+5
-          console.log(tunnelLength);
           $($('.carouselTunnel')[0]).css({
             marginLeft: offWindow.left
           })
           var scrollLeft = (100*index);
-          console.log(scrollLeft);
-          // $(".carouselTunnel").offset({ top: off.top, left: scrollLeft});
           $(".carouselOuterTunnel").animate({
             scrollLeft: scrollLeft
           }, 100);
@@ -236,47 +236,51 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         var acceptConfirm = confirm('Reject this Photo?')
       }
       if(acceptConfirm){
+        if(self.allPhotosSubmission === true){
+          acceptPhoto(photo, submissionId)
+        }
         if(acceptOrReject === 'accept'){
           acceptPhoto(photo, submissionId);
         }
         else if(acceptOrReject === 'reject'){
           rejectPhotoFunc(photo, submissionId);
         }
-
-        ////////function to remove from carousel
-        for (var i = 0; i < $scope.carouselPhotos.length; i++) {
-          if($scope.carouselPhotos[i]._id === photo._id){
-            console.log('got one');
-            $scope.carouselPhotos.splice(i, 1);
-            if($scope.carouselPhotos.length === 0){
-              exitCarousel();
-              backToList();
-              for (var i = 0; i < self.allSubmissions.length; i++) {
-                if(self.allSubmissions[i]._id === self.activeSubmission._id){
-                  self.allSubmissions.splice(i, 1);
+        if(self.allPhotosSubmission === false){
+          ////////function to remove from carousel
+          for (var i = 0; i < $scope.carouselPhotos.length; i++) {
+            if($scope.carouselPhotos[i]._id === photo._id){
+              console.log('got one');
+              $scope.carouselPhotos.splice(i, 1);
+              if($scope.carouselPhotos.length === 0){
+                exitCarousel();
+                backToList();
+                for (var i = 0; i < self.allSubmissions.length; i++) {
+                  if(self.allSubmissions[i]._id === self.activeSubmission._id){
+                    self.allSubmissions.splice(i, 1);
+                  }
                 }
               }
-            }
-            else {
-              var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
-              $('.carouselTunnel').css({
-                width: tunWidth-100+'px'
-              });
-              scrollFunc();
+              else {
+                var tunWidth = $($(".carouselTunnel")[0]).css("width").split('px')[0];
+                $('.carouselTunnel').css({
+                  width: tunWidth-100+'px'
+                });
+                scrollFunc();
+              }
             }
           }
-        }
-        for (var i = 0; i < self.activeSubmission.photos.length; i++) {
-          if(self.activeSubmission.photos[i]._id === photo._id){
-            console.log('got one in the submission');
-            console.log(self.activeSubmission.photos);
-            if(acceptOrReject === 'accept'){
-              self.activeSubmission.photos[i].status = 'offered for sale'
+          for (var i = 0; i < self.activeSubmission.photos.length; i++) {
+            if(self.activeSubmission.photos[i]._id === photo._id){
+              console.log('got one in the submission');
+              console.log(self.activeSubmission.photos);
+              if(acceptOrReject === 'accept'){
+                self.activeSubmission.photos[i].status = 'offered for sale'
+              }
+              else if(acceptOrReject === 'reject'){
+                self.activeSubmission.photos[i].status = 'rejected';
+              }
+              console.log(self.activeSubmission.photos);
             }
-            else if(acceptOrReject === 'reject'){
-              self.activeSubmission.photos[i].status = 'rejected';
-            }
-            console.log(self.activeSubmission.photos);
           }
         }
       }

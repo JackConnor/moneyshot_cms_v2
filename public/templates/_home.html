@@ -16,8 +16,8 @@
       <img src="{{currentCarPhoto.url}}" alt="" id='carouselMainImage' ng-if="!currentCarPhoto.isVideo" ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-swipe-left='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "reject")'/>
       <video ng-src="{{currentCarPhoto.url | trustUrl}}" poster='{{currentCarPhoto.thumbnail}}' id='carouselMainImage' ng-if="currentCarPhoto.isVideo" controls ng-swipe-right='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-swipe-left='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "reject")'></video>
       <div class="saveSingle">
-        <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-if='!dash.savedPhotos'></i>
-        <i class='saveSingleIcon fa fa-download' ng-click='dash.getBase64FromImageUrl(currentCarPhoto)' ng-if='dash.savedPhotos && !currentCarPhoto.isVideo'></i>
+        <i class='saveSingleIcon fa fa-download' ng-click='dash.acceptSinglePhoto(currentCarPhoto, dash.activeSubmission._id, "accept")' ng-if='!dash.allSaved'></i>
+        <i class='saveSingleIcon fa fa-download' ng-click='dash.getBase64FromImageUrl(currentCarPhoto)' ng-if='dash.allSaved && !currentCarPhoto.isVideo'></i>
       </div>
     </div>
     <div class="carouselOuterTunnel" ng-scroll='dash.scrollFunc()'>
