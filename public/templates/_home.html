@@ -2,9 +2,13 @@
 
 <div class="submissionsContainer">
   <div class="submissionsAllTabsHolder" ng-if='dash.submissionsOpen || dash.submissionsOpenAll'>
-    <span class='allNewPhotosTab photoTab col-xs-4' ng-click='dash.unprocessedSubmissionsFunc()'>New Submissions</span>
-    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.allSubmissionsFunc()'>All Submissions</span>
-    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()'>All Saved</span>
+    <span class='allNewPhotosTab photoTab col-xs-4' ng-click='dash.unprocessedSubmissionsFunc()' ng-if="!dash.submissionsOpen">New</span>
+    <span class='allNewPhotosTab photoTab photoTabSelected col-xs-4' ng-click='dash.unprocessedSubmissionsFunc()' ng-if="dash.submissionsOpen">New</span>
+
+    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.allSubmissionsFunc()' ng-if="!dash.submissionsOpenAll">All</span>
+    <span class='allPhotosTab photoTab photoTabSelected col-xs-4' ng-click='dash.allSubmissionsFunc()' ng-if="dash.submissionsOpenAll">All</span>
+
+    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()'>Saved</span>
   </div>
 
   <!-- photo carousel modal -->

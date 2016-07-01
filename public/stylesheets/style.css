@@ -243,6 +243,10 @@ section {
 /*///////////////
 ///////////////
 ///////////////*/
+body {
+  background-color: black;
+}
+
 .carouselCell {
   display: inline-block;
   width: 100px;
@@ -363,12 +367,18 @@ section {
 
 .photoTab {
   height: 50px;
-  border: 1px solid grey;
-  font-size: 15px;
+  /*border: 1px solid grey;*/
+  font-size: 21px;
   font-weight: 900;
   text-align: center;
   padding-top: 10px;
   text-align: center;
+  color: white;
+}
+
+.photoTabSelected {
+  background-color: #323232;
+  opacity: 0.5;
 }
 
 .purchaseButtonConfirm {

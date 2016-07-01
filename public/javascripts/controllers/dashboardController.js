@@ -19,6 +19,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.submissionsOpen = true;
     self.allPhotosSubmission = false;
     self.singleSubmissionOpen = false;
+    self.submissionsOpenAll   = false;
     self.activeSubmission = {}
     self.openSingleSubmission = openSingleSubmission;
     self.selectionActive = false;
