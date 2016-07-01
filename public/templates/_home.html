@@ -8,7 +8,8 @@
     <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.allSubmissionsFunc()' ng-if="!dash.submissionsOpenAll">All</span>
     <span class='allPhotosTab photoTab photoTabSelected col-xs-4' ng-click='dash.allSubmissionsFunc()' ng-if="dash.submissionsOpenAll">All</span>
 
-    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()'>Saved</span>
+    <span class='allPhotosTab photoTab col-xs-4' ng-click='dash.openAllSaved()' ng-if="!dash.allSaved">Saved</span>
+    <span class='allPhotosTab photoTab photoTabSelected col-xs-4' ng-click='dash.openAllSaved()' ng-if="dash.allSaved">Saved</span>
   </div>
 
   <!-- photo carousel modal -->

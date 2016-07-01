@@ -366,7 +366,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
 
     function openAllSaved(){
-      console.log('rolling');
+      self.allSaved = true;
       allSavedPhotos()
       .then(function(savedPhotos){
         console.log(savedPhotos);
@@ -374,7 +374,6 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         self.submissionsOpen = false;
         self.submissionsOpenAll = false;
         self.selectionActive = false;
-        self.allSaved = true;
       }, function(err){
         console.log(err);
       })
