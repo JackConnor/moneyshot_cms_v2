@@ -32,8 +32,13 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
     allSubmissions()
     .then(function(subs){
       console.log(subs);
-      self.allSubmissions = subs.data.reverse();
+      self.allSubmissions = subs.data.reverse().slice(0, 100);
+      console.log(self.allSubmissions[10]);
+      console.log(self.allSubmissions[100]);
+      console.log(self.allSubmissions[600]);
+      console.log(self.allSubmissions[623]);
       self.activeSubmission = self.allSubmissions[0];
+      console.log(self.activeSubmission);
       var subLength = subs.data.length;
       if(subLength > 21){
         var subLength = 20;
@@ -364,19 +369,29 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       self.selectionActive = false;
     }
     self.unprocessedSubmissionsFunc = unprocessedSubmissionsFunc;
-
+    // setInterval(function(){
+    //   console.log(self.allSaved);
+    //   console.log($('.allSavedPhotosContainer'));
+    // }, 500);
     function openAllSaved(){
+      self.submissionsOpenAll = false;
+      self.submissionsOpen = false;
+      console.log(self.savedPhotos);
       self.allSaved = true;
-      allSavedPhotos()
-      .then(function(savedPhotos){
-        console.log(savedPhotos);
-        self.savedPhotos = savedPhotos.data;
-        self.submissionsOpen = false;
-        self.submissionsOpenAll = false;
-        self.selectionActive = false;
-      }, function(err){
-        console.log(err);
-      })
+      if(self.savedPhotos === undefined){
+        allSavedPhotos()
+        .then(function(savedPhotos){
+          // console.log($('.allSavedPhotosContainer'));
+          console.log(savedPhotos);
+          self.savedPhotos = savedPhotos.data;
+          self.selectionActive = false;
+        }, function(err){
+          console.log(err);
+        })
+      }
+      else {
+        self.savedPhotos;
+      }
     }
     self.openAllSaved = openAllSaved;
 
