@@ -247,6 +247,10 @@ body {
   background-color: black;
 }
 
+.acceptButton {
+  color: white; 
+}
+
 .carouselCell {
   display: inline-block;
   width: 100px;
@@ -420,6 +424,11 @@ body {
   padding-bottom: 10px;
 }
 
+.rejectButton {
+  /*border-right: 2px solid white;*/
+  color: red;
+}
+
 .savedEmailAll {
   height: 65px;
   width: 80%;
@@ -491,7 +500,7 @@ body {
   width: 95%;
   margin-left: 2.5%;
   height: 350px;
-  border: 2px solid red;
+  background-color: white;
   overflow-y: scroll;
 }
 
@@ -502,8 +511,6 @@ body {
 
 .singleBack {
   height: 50px;
-  /*border: 2px solid green;*/
-  font-size: 25px;
   text-align: left;
   padding-left: 15px;
   padding-top: 5px;
@@ -516,15 +523,8 @@ body {
 .singleMetaDataHolder {
   width: 100%;
   height: 80px;
-  border: 1px solid black;
   text-align: center;
-  /*font-size: 22px;*/
-}
-
-.singleMetaDataHolder span {
-  padding-top: 10px;
-  font-size: 16px;
-  font-weight: 500;
+  color: white;
 }
 
 .singlePhotoCell {
@@ -543,7 +543,6 @@ body {
 }
 
 .singleSelect {
-  font-size: 25px;
   height: 50px;
   float: right;
   top: 0;
@@ -555,12 +554,15 @@ body {
 .singleSelected {
   font-weight: 900;
   opacity: 0.6;
+  background-color: #323232;
 }
 
 .singleSubmissionHeader {
   width: 100%;
   height: 50px;
   border: 2px solid black;
+  font-size: 25px;
+  color: white;
 }
 
 .submissionCell {
@@ -586,7 +588,6 @@ body {
 }
 @media only screen and (min-width: 321px){
   .submissionDataHolder {
-    padding-top: 15px;
     max-width: 240px;
     display: inline-block;
     padding-left: 15px;
@@ -598,7 +599,6 @@ body {
 @media only screen and (min-width: 600px){
   .submissionDataHolder {
     max-width: 500px;
-    padding-top: 15px;
     display: inline-block;
     padding-left: 15px;
     font-size: 16px;
@@ -626,15 +626,25 @@ body {
   height: 100%;
 }
 
-.submissionWho {
+.submissionWhat {
   font-size: 21px;
+}
+
+.submissionWhen {
+  font-size: 21px;
+  padding-top: 15px;
+  /*font-weight: 900;*/
+}
+
+.submissionWho {
+  font-size: 28px;
   font-weight: 900;
+  padding-top: 10px;
 }
 
 .submitButton {
   height: 70px;
-  border: 2px solid black;
   font-size: 25px;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 20px;
 }

@@ -46,14 +46,14 @@
   <div class="singleSubmissionContainer" ng-if='dash.singleSubmissionOpen'>
     <!-- {{dash.activeSubmission}} -->
     <div class="singleSubmissionHeader">
-      <div class="singleBack col-xs-4" ng-click='dash.backToList()'>
+      <div class="singleBack col-xs-6" ng-click='dash.backToList()'>
         <i class='fa fa-chevron-left'></i>Back
 
       </div>
-      <div class="singleSelect col-xs-4 col-xs-offset-4" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
+      <div class="singleSelect col-xs-6" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
         Select
       </div>
-      <div class="singleSelect singleSelected col-xs-4 col-xs-offset-4" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
+      <div class="singleSelect singleSelected col-xs-6" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
         Select
       </div>
     </div>
@@ -73,7 +73,9 @@
     </div>
 
     <div class="singleMetaDataHolder">
-      <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span><span class='col-xs-6'>{{dash.activeSubmission.metadata.what}}</span><span class='col-xs-16'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
+      <span class='col-xs-12 submissionWho'>{{dash.activeSubmission.metadata.who}}</span>
+      <span class='col-xs-6 submissionWhat'>{{dash.activeSubmission.metadata.what}}</span>
+      <span class='col-xs-16 submissionWhen'>{{dash.activeSubmission.metadata.date.split(',')[0]}}</span>
     </div>
     <div class="savedEmailAll" ng-click='dash.getOldSubmissionPhotos()' ng-if='dash.allPhotosSubmission'>
       Get These Photos
@@ -108,17 +110,14 @@
   <!-- all saved photos modal -->
   <div class="allSavedPhotosContainer" ng-if='dash.allSaved'>
     <div class="singleSubmissionHeader">
-      <div class="singleBack col-xs-5" ng-click='dash.backToList()'>
+      <div class="singleBack col-xs-6" ng-click='dash.backToList()'>
         <i class='fa fa-chevron-left'></i>Back
 
       </div>
-      <div class="col-xs-2">
-
-      </div>
-      <div class="singleSelect col-xs-5" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
+      <div class="singleSelect col-xs-6" ng-click='dash.activateSelection()' ng-if='!dash.selectionActive'>
         Select
       </div>
-      <div class="singleSelect singleSelected col-xs-4 col-xs-offset-4" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
+      <div class="singleSelect singleSelected col-xs-6" ng-if='dash.selectionActive' ng-click='dash.activateSelection()'>
         Select
       </div>
     </div>
