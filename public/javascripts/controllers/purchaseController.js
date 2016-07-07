@@ -19,7 +19,7 @@ angular.module('purchaseController', [])
       // console.log(price + photoId);
       $http({
         method: "GET"
-        ,url: "http://192.168.0.5:5555/api/photo/"+photoId
+        ,url: "https://moneyshotapi.herokuapp.com/api/photo/"+photoId
       })
       .then(function(data){
         console.log(data);
@@ -35,14 +35,15 @@ angular.module('purchaseController', [])
       var photoPublication = $('#purchasePhotoPublication').val();
       $http({
         method: "POST"
-        ,url: 'http://192.168.0.5:5555/api/soldPhoto'
+        ,url: 'https://moneyshotapi.herokuapp.com/api/soldPhoto'
         ,data: {photoId: photoId, photoPrice: price, purchaser: photoPublication}
       })
       .then(function(data){
         console.log(data);
         if(data.data.message = "Success"){
           alert('Your Photo has been sent!')
-          // window.location.reload();
+          self.purchaseModalBool = false;
+          window.location.reload();
         }
         else {
           alert('There was a problem, please try again');
