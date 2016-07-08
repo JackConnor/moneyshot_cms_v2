@@ -331,17 +331,31 @@ body {
   margin-top: 10px;
   display: block;
 }
+@media only screen and (min-width: 0px){
+  .confirmSalesModal {
+    height: auto;
+    padding-bottom: 20px;
+    width: 100%;
+    border: 2px solid white;
+    position: absolute;
+    z-index: 100;
+    background-color: black;
+    color: white;
+  }
+}
 
-.confirmSalesModal {
-  height: auto;
-  padding-bottom: 20px;
-  width: 90%;
-  margin-left: 5%;
-  border: 2px solid white;
-  position: absolute;
-  z-index: 100;
-  background-color: black;
-  color: white;
+@media only screen and (min-width: 900px){
+  .confirmSalesModal {
+    height: auto;
+    padding-bottom: 20px;
+    width: 90%;
+    margin-left: 5%;
+    border: 2px solid white;
+    position: absolute;
+    z-index: 100;
+    background-color: black;
+    color: white;
+  }
 }
 
 .photoCarousel {
