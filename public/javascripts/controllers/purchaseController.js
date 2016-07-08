@@ -19,7 +19,7 @@ angular.module('purchaseController', [])
       // console.log(price + photoId);
       $http({
         method: "GET"
-        ,url: "https://moneyshotapi.herokuapp.com/api/photo/"+photoId
+        ,url: "http://45.55.24.234:5555/api/photo/"+photoId
       })
       .then(function(data){
         console.log(data);
@@ -35,7 +35,7 @@ angular.module('purchaseController', [])
       var photoPublication = $('#purchasePhotoPublication').val();
       $http({
         method: "POST"
-        ,url: 'https://moneyshotapi.herokuapp.com/api/soldPhoto'
+        ,url: 'http://45.55.24.234:5555/api/soldPhoto'
         ,data: {photoId: photoId, photoPrice: price, purchaser: photoPublication}
       })
       .then(function(data){

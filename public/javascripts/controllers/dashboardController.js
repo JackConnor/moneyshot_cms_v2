@@ -407,7 +407,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         if(i !== savedLength-1){
           $http({
             method: "POST"
-            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
+            ,url: "http://45.55.24.234:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){
@@ -422,7 +422,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         else {
           $http({
             method: "POST"
-            ,url: "http://192.168.0.5:5555/api/accepted/savedPhoto"
+            ,url: "http://45.55.24.234:5555/api/accepted/savedPhoto"
             ,data: {_id: elId, status: "downloaded"}
           })
           .then(function(updatedPhoto){

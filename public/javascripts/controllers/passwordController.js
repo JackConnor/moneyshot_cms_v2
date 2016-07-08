@@ -27,7 +27,7 @@ angular.module('passwordController', [])
           console.log('pw match');
           $http({
             method: "POST"
-            ,url: 'http://192.168.0.5:5555/api/update/pw'
+            ,url: 'http://45.55.24.234:5555/api/update/pw'
             ,data: {_id: userId, password: newPass}
           })
           .then(function(updatedUser){
