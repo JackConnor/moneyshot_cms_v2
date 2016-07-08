@@ -15,7 +15,8 @@ angular.module('purchaseController', [])
       var photoId = $('#purchasePhotoId').val();
       var price = $('#purchasePhotoPrice').val();
       self.userPrice = price;
-      // var photoPublication = $('#purchasePhotoPublication').val();
+      var photoPublication = $('#purchasePhotoPublication').val();
+      self.photoPublication = photoPublication;
       // console.log(price + photoId);
       $http({
         method: "GET"

@@ -6,8 +6,13 @@
 <div class="confirmSalesModal" ng-if='purchase.purchaseModalBool'>
   <img class="confirmImage" src="{{purchase.photoToSell.url}}" />
   <div class="purchaseInfo">
-    <div class="purchasePrice">
-      Send request to user, to make payment of: ${{purchase.userPrice}}?
+    <div class="purchaseData">
+      <div class="purchasePrice">
+        Send request to user of: {{purchase.userPrice | currency}}
+      </div>
+      <div class="purchaseCompany">
+        Publication: {{purchase.photoPublication}}
+      </div>
     </div>
     <div class="purchaseButtonConfirm" ng-click='purchase.sendEmail()'>Send Sale Info</div>
   </div>
