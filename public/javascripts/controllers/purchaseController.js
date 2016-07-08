@@ -42,7 +42,7 @@ angular.module('purchaseController', [])
       .then(function(data){
         console.log(data);
         if(data.data.message = "Success"){
-          alert('Your Photo has been sent!')
+          alert('Sales info has been sent')
           self.purchaseModalBool = false;
           window.location.reload();
         }
