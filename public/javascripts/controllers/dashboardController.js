@@ -197,7 +197,9 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
         if(confirming){
           var photoArrLength = photoArr.length;
           for (var i = 0; i < photoArrLength; i++) {
-            rejectPhotoFunc(photoArr[i].id, self.activeSubmission._id);
+            console.log(photoArr[i].id)
+            var jsonPhoto = JSON.parse(photoArr[i].id)
+            rejectPhotoFunc(jsonPhoto._id, self.activeSubmission._id);
           }
         }
       }
@@ -328,7 +330,7 @@ angular.module('dashboardController', ['allSubmissionsFactory', 'ngFileUpload'])
       console.log('rejecting');
       rejectPhoto(photo, submissionId)
       .then(function(rejectedPhoto){
-
+        console.log(rejectedPhoto);
       })
       .catch(function(err){
         console.log(err);
