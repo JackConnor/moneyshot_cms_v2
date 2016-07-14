@@ -36,15 +36,15 @@ angular.module('purchaseController', [])
       var photoPublication = $('#purchasePhotoPublication').val();
       $http({
         method: "POST"
-        ,url: 'http://45.55.24.234:5555/api/soldPhoto'
-        ,data: {photoId: photoId, photoPrice: price, purchaser: photoPublication}
+        ,url: 'http://192.168.0.16:5555/api/soldPhoto'
+        ,data: {photoId: photoId, photoPrice: price, purchaser: photoPublication, submissionId: self.photoToSell.submission}
       })
       .then(function(data){
         console.log(data);
         if(data.data.message = "Success"){
           alert('Sales info has been sent')
           self.purchaseModalBool = false;
-          window.location.reload();
+          // window.location.reload();
         }
         else {
           alert('There was a problem, please try again');
